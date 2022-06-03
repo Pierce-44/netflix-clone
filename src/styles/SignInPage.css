@@ -1,0 +1,175 @@
+.signInPage {
+  height: 100vh;
+  background-image: linear-gradient(to top,rgba(0, 0, 0, 0.562) 0,rgba(0, 0, 0, 0.212) 60%,rgba(0, 0, 0, 0.712) 100%);
+  position: relative;
+}
+
+.signInPageBackgroundImg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  background-color: black;
+  overflow: hidden;
+}
+
+.signInPageBackgroundImg img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+
+}
+
+.signInPageHeader {
+  height: 90px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+}
+
+.signInPageLogo {
+  margin-left: 3%;
+}
+
+.signInPageLogo img {  
+  height: 45px;
+  width: auto;
+}
+
+.signInPageForm {
+  width: 100%;
+  height: calc(100vh - 90px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signInPageFormContainer {
+  background-color: rgba(0,0,0,.75);
+  padding: 60px 68px 40px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  position: relative;
+  max-width: 315px;
+  width: 100%;
+}
+
+.signInPageTitle {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 28px;
+  margin-top: 0;
+}
+
+.signInPageInput {
+  font-size: 16px;
+  color: white;
+  height: 34px;
+  background: #333;
+  border: none;
+  border-radius: 4px;
+  padding: 16px 20px 0;
+}
+
+.signInPageInput:focus {
+  outline: none;
+}
+
+.signInPageLabelEmail, .signInPageLabelPassword {
+  color: #8c8c8c;
+  font-size: 11px;
+  position: absolute;
+  left: 90px;
+}
+
+.signInPageLabelEmail {
+  top: 135px;
+}
+
+.signInPageLabelPassword {
+  top: 225px;
+}
+
+.signInPageValidationText {
+  color: #e87c03;
+  padding: 6px 3px;
+  font-size: 13px;
+  margin: 0;
+  height: 13px;
+  margin-bottom: 15px;
+}
+
+.signInPageSubmitBtn {
+  background: #e50914;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 24px 0 12px;
+  border-radius: 4px;
+  color: white;
+  padding: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.signInPageSubmitBtn:hover {
+  background-color: #ff000d;
+}
+
+.signInPageFormLowerDiv {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.signInPageLink {
+  color: white;
+  text-decoration: none;
+}
+
+.signInPageLink:hover {
+  text-decoration: underline;
+}
+
+.signInPageGreyText {
+  color: #737373;
+}
+
+
+@media only screen and (max-width: 740px){
+  .signInPageFormContainer {
+    padding: 60px 15px 40px;
+    max-width: 550px;
+    width: 100%;
+  }
+  .signInPageBackgroundImg {
+    display: none;
+  }
+  .signInPage {
+    background: black;
+  }
+  .signInPageLabelEmail, .signInPageLabelPassword {
+    left: 35px;
+  }
+}
+
+@media only screen and (max-width: 440px){
+  .signInPageLogo img {  
+    height: 20px;
+    width: auto;
+  }
+  .signInPageFormContainer {
+    padding: 0px 15px 70px;
+  }
+  .signInPageLabelEmail {
+    top: 75px;
+  }
+  
+  .signInPageLabelPassword {
+    top: 165px;
+  }
+}

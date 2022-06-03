@@ -1,0 +1,495 @@
+@font-face {
+  font-family: 'MyWebFont';
+  src:  url('./fonts/NetflixSansRegular.ttf')
+}
+
+body {
+  margin: 0;
+  font-family: MyWebFont;
+  color: rgb(255, 255, 255);
+}
+
+.SignUpPageApp {
+  background-color: rgb(0, 0, 0);
+  position: relative;
+}
+
+.upperSignUpForm {
+  width: 100%;
+  position: absolute;
+  top: 6%;
+}
+
+.upperSignUpFormContainer {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.upperSignUpFormContainer h1 {
+  font-size: 3.125rem;
+  max-width: 640px;
+  text-align: center;
+  margin: 0;
+}
+
+.upperSignUpFormContainer h2 {
+  font-size: 1.625rem;
+  max-width: 640px;
+  text-align: center;
+  font-weight: 300;
+  margin: 1rem auto;
+}
+
+.SignUpPageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  margin-left: 55px;
+  margin-right: 55px;
+  padding-top: 15px;
+}
+
+.SignUpPageLogo {
+  height: 35px;
+  width: auto;
+}
+
+.signInBtnHeader {
+  background-color: #e50914;
+  font-size: 1rem;
+  padding: 7px 17px;
+  border-radius: 3px;
+}
+
+.linkText {
+  text-decoration: none;
+  color: white;
+}
+
+.SignUpPageMain {
+  height: max-content;
+}
+
+.SignUpPageSectionOne {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 680px;
+  width: 100%;
+  border-bottom: 8px solid #222;
+}
+
+.imageStoryBoard {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.SignUpPageOpacity {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 680px;
+  width: 100%;
+  background-image: linear-gradient(to top,rgba(0, 0, 0, 0.85) 0,rgba(0, 0, 0, 0.425) 60%,rgba(0,0,0,.85) 100%);
+}
+
+.SignUpPageSections, .FAQContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1100px;
+  padding: 70px 45px;
+  margin: 0 auto;
+}
+
+.storyBoardBorder {
+  border-bottom: 8px solid #222;
+}
+
+.storyCardTitle {
+  font-size: 3.125rem;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+  margin-top: 0px;
+}
+
+.storyCardText {
+  font-size: 1.625rem;
+  font-weight: 400;
+}
+
+.storyCardContainerUpper {
+  width: 52%;
+  padding-right: 45px;
+}
+
+.storyCardContainerLower {
+  width: 48%;
+  height: 100%;
+  position: relative;
+  top: -20px;
+}
+
+.tvImage {
+  position: relative;
+  width: 100%;
+  height: auto;
+  z-index: 2;
+}
+
+
+.storyCardVideo {
+  height: 100%;
+  width: 100%;
+  max-width: 73%;
+  max-height: 54%;
+  position: absolute;
+  top: 20.5%;
+  left: 13%;
+
+}
+
+.flexReverse {
+  flex-direction: row-reverse;
+}
+
+.mobileDevice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 8%;
+  left: 16%;
+  background: #000;
+  border: 2px solid rgba(255,255,255,.25);
+  border-radius: 0.75em;
+  width: 60%;
+  padding: 0.5em 0.75em;
+  z-index: 2;
+}
+
+.mobileDevice p {
+  margin: 0;
+}
+
+.boxShotImg {
+  height: 4.5em;
+}
+
+.downLoadIcon {
+  height: 3.75em;
+}
+
+.appleTv {
+  max-width: 63%;
+  max-height: 47%;
+  top: 10%;
+  left: 18%;
+}
+
+.FAQContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.FAQList {
+  width: 75%;
+  margin: 2em auto;
+  max-width: 815px;
+  list-style-type: none;
+  padding: 0;
+}
+
+.FAQListItem {
+  margin: 0 0 8px 0;
+}
+
+.FAQQuestion {
+  padding: 0.8em 2.2em 0.8em 1.2em;
+  margin-bottom: 1px;
+  font-weight: 400;
+  position: relative;
+  width: 100%;
+  border: 0;
+  text-align: left;
+  background: #303030;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  font-size: 1.625rem;
+  margin-bottom: 1px;
+}
+
+.FAQQuestion svg {
+  position: absolute;
+  height: 22px;
+  width: auto;
+  right: 1em;
+  fill: white;
+}
+
+.svgFAQClosed {
+  transform: translateY(-50%) rotate(-45deg);
+  top: 50%;
+}
+
+.hideFAQText {
+  overflow: hidden;
+
+}
+
+.hideFAQText p {
+  max-height: 0;
+  margin: 0;
+  animation: dropDownAnimationClose 0.25s cubic-bezier(.5,0,.1,1);
+  animation-fill-mode: forwards; 
+}
+
+.showFAQText {
+  background: #303030;
+}
+
+.showFAQText p {
+  margin: 0;
+  padding: 1.2em;
+  font-size: 1.625rem;
+  animation: dropDownAnimation 0.25s cubic-bezier(.5,0,.1,1);
+  animation-fill-mode: forwards; 
+}
+
+.submitEmailContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 700px;
+  padding-top: 0.85rem;
+  width: 80%;
+
+}
+
+.submitEmailInputContainer {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.submitEmailSubTitle {
+  padding-bottom: 20px;
+  font-size: 1.2rem;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+.submitEmailInput {
+  /* flex: 1; */
+  width: 100%;
+  padding: 10px 10px 0;
+  font-size: 16px;
+  color: #000;
+  height: 48px;
+}
+
+.submitEmailInput:focus {
+  outline: none;
+}
+
+.submitEmailLabel {
+  position: absolute;
+  color: #8c8c8c;
+  left: 10px;
+  top: 6px;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.emailSubmitButton {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e50914;
+  padding: 0 1.7em;
+  cursor: pointer;
+  height: 62px;
+}
+
+.emailSubmitButton:hover {
+  background-color: #ff000d;
+}
+
+.emailSubmitButton p {
+  margin: 0;
+  text-align: center;
+  font-size: 1.625rem;
+  white-space: nowrap;
+}
+
+.nextArrowSvg {
+  height: 20px;
+  width: auto;
+  margin: 0 0 0 1em;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+@keyframes dropDownAnimation {
+  0% {max-height: 0px;
+    opacity: 0;}
+  100% {max-height: 1200px;
+    opacity: 100%;}
+}
+
+@keyframes dropDownAnimationClose {
+  0% {max-height: 1200px;
+    opacity: 0;}
+  100% {max-height: 0px;
+    opacity: 0;}
+}
+
+@media only screen and (max-width: 950px){
+  .SignUpPageSections {
+    flex-direction: column;
+  }
+  .storyCardContainerLower {
+    width: 100%;
+    max-width: 600px;
+  }
+  .storyCardContainerUpper {
+    width: 100%;
+    text-align: center;
+    padding-right: 0;
+  }
+  .storyCardTitle {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+  
+  .storyCardText {
+    font-size: 1.25rem;
+  }
+
+  .SignUpPageLogo {
+  height: 30px;
+}
+
+.FAQList {
+  margin: 1.5em auto;
+  width: 90%;
+}
+
+.FAQQuestion {
+  font-size: 1.25rem;
+}
+.showFAQText p {
+  font-size: 1.25rem;
+}
+.submitEmailInputContainer {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+}
+.submitEmailSubTitle {
+  max-width: 450px;
+  text-align: center;
+}
+.submitEmailLabel {
+  left: 0;
+}
+.emailSubmitButton {
+  height: 40px;
+  padding: 0 1em;
+  border-radius: 2px;
+  margin-top: 20px;
+}
+.emailSubmitButton p {
+  font-size: 1rem;
+}
+.nextArrowSvg {
+  height: 15px;
+}
+.upperSignUpForm {
+  top: 4.5%;
+}
+
+}
+
+@media only screen and (max-width: 550px){
+  .storyCardTitle {
+    font-size: 1.6rem;
+  }
+  .SignUpPageLogo {
+    height: 25px;
+  }
+  .SignUpPageSections {
+    padding: 50px 5%;
+  }
+  .SignUpPageHeader {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  .SignUpPageOpacity {
+    background-image: linear-gradient(to top,rgb(0, 0, 0) 0,rgba(0, 0, 0, 0.185) 60%,rgb(0, 0, 0) 100%);
+    height: 500px;
+  }
+  .SignUpPageSectionOne{
+    height: 500px;
+  }
+  .FAQQuestion {
+    font-size: 1.125rem;
+  }
+  .showFAQText p {
+    font-size: 1.125rem;
+  }
+  .FAQList {
+    width: 100%;
+  }
+  .FAQContainer{
+    padding: 50px 0;
+  }
+  .boxShotImg {
+    height: 3em;
+  }
+  .downLoadIcon {
+    height: 3em;
+  }
+  .mobileDevice p {
+    font-size: .9em;
+  }
+  .mobileDevice {
+    padding: 0.25em 0.65em;
+    width: 70%;
+    left: 10%;
+  }
+  .submitEmailLabel {
+    top: 4px;
+    font-size: 11px;
+  }
+  .submitEmailInput {
+    height: 35px;
+  }
+  .upperSignUpFormContainer h1 {
+    font-size: 1.75rem;
+  }
+  
+  .upperSignUpFormContainer h2 {
+    font-size: 1.125rem;
+  }
+  .upperSignUpForm {
+  top: 4%;
+}
+}
