@@ -177,8 +177,20 @@
   margin: 0;
   font-size: 0.8rem;
   height: 0.8rem;
-  color: red;
+  color: #b92d2b;
 }
+
+.showErrorBox {
+  border: 1px solid #b92d2b;
+  border-radius: 2px;
+}
+
+.hideErrorBox {
+  border: solid 1px #8c8c8c;
+  border-radius: 2px;
+} 
+
+
 
 @keyframes slideRightAnimation {
   0% {

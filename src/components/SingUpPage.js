@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../images/netflixLogo.svg';
 import downLoadAnimation from '../images/download-icon.gif';
 import '../styles/SignUpPage.css';
 import dataProps from './Context';
+import { emailValidate } from './validate';
 
 function SignUpPage() {
   const cardImage =
@@ -370,8 +371,40 @@ function SignUpPage() {
 function SignUpForm() {
   const { signUpEmail } = useContext(dataProps);
   const { setSignUpEmail } = useContext(dataProps);
+  const [formErrors, setFormErrors] = useState('');
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [errorUnderlineClass, setErrorUnderlineClass] =
+    useState('hideErrorUnderline');
+
+  const navigate = useNavigate();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setFormErrors(
+      emailValidate(signUpEmail, setErrorUnderlineClass, 'showErrorUnderline')
+    );
+    setIsSubmit(true);
+  }
+
+  useEffect(() => {
+    if (formErrors === '' && isSubmit) {
+      // submitToFireBase();
+      navigate('/registration');
+    }
+    if (formErrors === '') {
+      setErrorUnderlineClass('hideErrorUnderline');
+    }
+    setFormErrors(
+      emailValidate(signUpEmail, setErrorUnderlineClass, 'showErrorUnderline')
+    );
+  });
+
   return (
-    <form action="" className="submitEmailContainer">
+    <form
+      action=""
+      className="submitEmailContainer"
+      onSubmit={(e) => handleSubmit(e)}
+    >
       <div>
         <h3 className="submitEmailSubTitle">
           Ready to watch? Enter your email to create or restart your membership.
@@ -382,28 +415,29 @@ function SignUpForm() {
           type="text"
           value={signUpEmail}
           onChange={(e) => setSignUpEmail(e.target.value)}
-          className="submitEmailInput"
+          className={`submitEmailInput ${errorUnderlineClass}`}
           id="submitEmail"
         />
         <label htmlFor="submitEmail" className="submitEmailLabel">
           Email address
         </label>
-        <Link to="/registration" className="link">
-          <div className="emailSubmitButton">
-            <p>Get Started</p>
-            <svg
-              viewBox="0 0 6 12"
-              xmlns="http://www.w3.org/2000/svg"
-              className="nextArrowSvg"
-            >
-              <desc>chevron</desc>
-              <path
-                d="M.61 1.312l.78-.624L5.64 6l-4.25 5.312-.78-.624L4.36 6z"
-                fill="white"
-              />
-            </svg>
-          </div>
-        </Link>
+        <button className="emailSubmitButton" type="submit">
+          <p>Get Started</p>
+          <svg
+            viewBox="0 0 6 12"
+            xmlns="http://www.w3.org/2000/svg"
+            className="nextArrowSvg"
+          >
+            <desc>chevron</desc>
+            <path
+              d="M.61 1.312l.78-.624L5.64 6l-4.25 5.312-.78-.624L4.36 6z"
+              fill="white"
+            />
+          </svg>
+        </button>
+      </div>
+      <div className="SignUpPageFormErrors">
+        <p>{formErrors}</p>
       </div>
     </form>
   );

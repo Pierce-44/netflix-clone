@@ -321,7 +321,9 @@ body {
   background-color: #e50914;
   padding: 0 1.7em;
   cursor: pointer;
-  height: 62px;
+  height: 60px;
+  border: none;
+  color: white;
 }
 
 .emailSubmitButton:hover {
@@ -344,6 +346,31 @@ body {
 .link {
   text-decoration: none;
   color: white;
+}
+
+.SignUpPageFormErrors {
+  color: #ffa00a;
+  /* text-align: left; */
+
+  font-size: 15px;
+  margin-right: auto;
+}
+
+.SignUpPageFormErrors p{
+  /* text-align: left; */
+  margin: 0;
+  margin-top: 6px;
+  font-size: 15px;
+}
+
+.showErrorUnderline {
+  border: none;
+  border-bottom: 2px solid #ffa00a;
+}
+
+.hideErrorUnderline {
+  border: none;
+  border-bottom: 2px solid white;
 }
 
 @keyframes dropDownAnimation {
@@ -425,7 +452,16 @@ body {
 .upperSignUpForm {
   top: 4.5%;
 }
-
+.SignUpPageFormErrors {
+  position: absolute;
+  top: 135px;
+}
+.SignUpPageFormErrors p{
+  font-size: 13px;
+}
+.submitEmailContainer {
+  position: relative;
+}
 }
 
 @media only screen and (max-width: 550px){
@@ -491,5 +527,14 @@ body {
   }
   .upperSignUpForm {
   top: 4%;
+  }
+  .SignUpPageFormErrors {
+    top: 65%;
+  }
 }
+
+@media only screen and (max-width: 407px){
+  .SignUpPageFormErrors {
+    top: 68%;
+  }
 }

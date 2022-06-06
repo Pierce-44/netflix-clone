@@ -1,9 +1,16 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import firebaseConfig from './fireBaseConfig';
+import dataProps from './Context';
+import { emailValidate, passwordValidate } from './validate';
 import logo from '../images/netflixLogo.svg';
 import '../styles/RegistrationPage.css';
+
+initializeApp(firebaseConfig);
 
 function RegistrationPage() {
   const [hideSectionOne, SetHideSectionOne] = useState('showSectionOne');
@@ -51,6 +58,58 @@ function SectionOne({ SetHideSectionOne, SetShowSectionTwo }) {
 }
 
 function SectionTwo() {
+  const { signUpEmail } = useContext(dataProps);
+  const { setSignUpEmail } = useContext(dataProps);
+  const [emailFormErrors, setEmailFormErrors] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordFormErrors, setPasswordFormErrors] = useState('');
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [errorUnderlineClass, setErrorUnderlineClass] =
+    useState('hideErrorBox');
+  const [errorUnderlineClassPW, setErrorUnderlineClassPW] =
+    useState('hideErrorBox');
+
+  const auth = getAuth();
+
+  const navigate = useNavigate();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    // submitToFireBase();
+    if (passwordFormErrors === '' && emailFormErrors === '') {
+      createUserWithEmailAndPassword(auth, signUpEmail, password)
+        .then((userCredential, error) => {
+          // Signed in
+          if (error === undefined) {
+            setIsSubmit(true);
+          }
+        })
+        .catch((error) => {
+          setPasswordFormErrors(error.message);
+        });
+    }
+  }
+
+  useEffect(() => {
+    if (isSubmit) {
+      navigate('/browse');
+    }
+    if (emailFormErrors === '') {
+      setErrorUnderlineClass('hideErrorBox');
+    }
+    if (passwordFormErrors === '') {
+      setErrorUnderlineClassPW('hideErrorBox');
+    }
+
+    setEmailFormErrors(
+      emailValidate(signUpEmail, setErrorUnderlineClass, 'showErrorBox')
+    );
+    setPasswordFormErrors(
+      passwordValidate(password, setErrorUnderlineClassPW, 'showErrorBox')
+    );
+  }, [isSubmit, signUpEmail, password]);
+
   return (
     <div className="sectionTwoContainer">
       <h1>Create a password to proceed to the app</h1>
@@ -59,27 +118,35 @@ function SectionTwo() {
         <br />
         We hate paperwork, too.
       </p>
-      <form action="" className="registrationPageForm">
+      <form
+        action=""
+        className="registrationPageForm"
+        onSubmit={(e) => handleSubmit(e)}
+      >
         <input
-          type="text"
+          type="email"
           id="email"
-          className="submitEmailInput inputHeight"
+          className={`submitEmailInput inputHeight ${errorUnderlineClass}`}
+          value={signUpEmail}
+          onChange={(e) => setSignUpEmail(e.target.value)}
         />
         <label htmlFor="email" className="registrationPageLabelEmail">
           Email
         </label>
-        <p id="inputValidationText">Email is required!</p>
+        <p id="inputValidationText">{emailFormErrors}</p>
         <input
-          type="text"
+          type="password"
           id="password"
-          className="submitEmailInput inputHeight"
+          className={`submitEmailInput inputHeight ${errorUnderlineClassPW}`}
           style={{ marginTop: '20px' }}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <label htmlFor="password" className="registrationPageLabelPassword">
           Add a password
         </label>
-        <p id="inputValidationText">Password is required!</p>
-        <button type="button">Next</button>
+        <p id="inputValidationText">{passwordFormErrors}</p>
+        <button type="submit">Next</button>
       </form>
     </div>
   );
