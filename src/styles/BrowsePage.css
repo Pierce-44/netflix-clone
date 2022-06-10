@@ -35,22 +35,53 @@
   position: relative;
 }
 
-#maxRowHeight {
-  height: 26vw;
-}
 
-#averageRowHeight {
-  height: 12.5vw;
-}
-
-#lowerRowHeight {
+.rowHeight {
   height: 10.5vw;
+}
+
+#rowHeightLarge{
+  height: 13.5vw;
+}
+
+#verticalImage {
+  width: 50% !important;
+  z-index: 10;
+  margin-left: auto;
+}
+
+#topTwentyImages {
+  display: initial;
+  /* padding-left: 3.5vw; */
+  height: 100%;
+
+  /* position: relative;
+  left: 15%; */
+  /* z-index: 1; */
+}
+
+
+.topTwentyContainer {
+  position: absolute;
+  left: 0;
+  display: flex;
+  height: 100%;
+}
+
+.topTenImagesDiv {
+  align-items: center;
+  height: 100%;
+}
+
+.hideTopTwentyImages {
+  display: none;
 }
 
 .rowContainer {
   display: flex;
   gap: 0.4vw;
   position: absolute;
+  height: 100%;
 }
 
 .rowImage {
@@ -61,18 +92,21 @@
 .rowDiv {
   width: calc(88.6vw / 5);
   border-radius: 3px;
+  display: flex;
+  /* flex-direction: row-reverse;
+  align-items: center; */
 }
 
 .arrowContainer {
   flex: 1;
   background-color: #14141496;
-  z-index: 2;
+  z-index: 12;
 }
 
 .arrowContainerLeft {
   flex: 1;
   background-color: #14141400;
-  z-index: 2;
+  z-index: 12;
 }
 
 .arrowDiv, .arrowDivLeft {
@@ -91,7 +125,7 @@
 }
 
 .arrowShow {
-  display: initial;
+  display: flex;
 }
 
 .arrowDiv:hover .arrowImg { 
@@ -227,5 +261,26 @@
   }
   100% {
     left: 91vw;
+  }
+}
+
+
+/*------------------------- screen widths -------------------------*/
+
+@media only screen and (max-width: 1100px){
+  .rowHeight{
+    height: 12.5vw;
+  }
+  #rowHeightLarge {
+    height: 17vw;
+  }
+}
+
+@media only screen and (max-width: 600px){
+  .rowHeight{
+    height: 26vw;
+  }
+  #rowHeightLarge {
+    height: 34vw;
   }
 }

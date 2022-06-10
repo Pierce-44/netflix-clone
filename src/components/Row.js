@@ -8,8 +8,17 @@ import axios from './axios';
 import arrowRight from '../images/arrowRight.svg';
 import arrowLeft from '../images/arrowLeft.svg';
 import { handleRightClick, handleLeftClick } from './carousel';
+import numberImages from './images';
 
-function Row({ title, fetchURL }) {
+function Row({
+  title,
+  fetchURL,
+  imagePath,
+  rowHeight,
+  imageHeight,
+  topTwentyImages,
+  topTwentyRow,
+}) {
   const baseUrl = 'https://image.tmdb.org/t/p/w400/';
   const [movies, setMovies] = useState([]);
   const [arrowState, setArrowState] = useState('arrowHide');
@@ -19,7 +28,6 @@ function Row({ title, fetchURL }) {
   const [clicked, setClicked] = useState(false);
   const [numberOfBoxElements, setNumberOfBoxElements] = useState(4);
   const [numberOfImages, setNumberOfImages] = useState(5);
-  const [rowUpperContainerHeight, setRowUpperContainerHeight] = useState('');
   const [rowBoxes, setRowBoxes] = useState([]);
   const size = useWindowSize();
   const baseCoords = [
@@ -95,20 +103,17 @@ function Row({ title, fetchURL }) {
     if (size.width > 1100) {
       setNumberOfBoxElements(4);
       setNumberOfImages(5);
-      setRowUpperContainerHeight('lowerRowHeight');
       setRowBoxes([0, 5, 10, 15, 20]);
       setCenterElement(1);
       setElements(baseCoords);
     } else if (size.width < 1100 && size.width > 600) {
       setNumberOfBoxElements(5);
       setNumberOfImages(4);
-      setRowUpperContainerHeight('averageRowHeight');
       setRowBoxes([0, 4, 8, 12, 16, 20]);
       setElements(baseCoords);
     } else if (size.width < 600) {
       setNumberOfBoxElements(10);
       setNumberOfImages(2);
-      setRowUpperContainerHeight('maxRowHeight');
       setRowBoxes([0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]);
       setElements(baseCoords);
     }
@@ -116,7 +121,6 @@ function Row({ title, fetchURL }) {
 
   return (
     <div className="row">
-      <p>{size.width}px</p>
       <h2 className="rowTitle">{title}</h2>
       <div
         className="rowMain"
@@ -127,7 +131,10 @@ function Row({ title, fetchURL }) {
         }}
       >
         <div className="arrowContainer">
-          <div className="arrowDiv" onClick={() => handleClickDelayLeft()}>
+          <div
+            className={`arrowDiv ${leftArrowState}`}
+            onClick={() => handleClickDelayLeft()}
+          >
             <img
               src={arrowLeft}
               alt="arrow"
@@ -135,7 +142,7 @@ function Row({ title, fetchURL }) {
             />
           </div>
         </div>
-        <div className="rowUpperContainer" id={rowUpperContainerHeight}>
+        <div className="rowUpperContainer rowHeight" id={rowHeight}>
           {elements.map((element, indexUpper) => (
             <div className="rowContainer" id={element} key={`key${indexUpper}`}>
               {movies
@@ -147,13 +154,37 @@ function Row({ title, fetchURL }) {
                     style={{ width: `calc(88.6vw / ${numberOfImages})` }}
                   >
                     <img
-                      src={baseUrl + movie.backdrop_path}
+                      src={baseUrl + movie[imagePath]}
                       alt={movie.original_title}
                       className="rowImage"
                       style={{ width: `calc(88.6vw / ${numberOfImages})` }}
+                      id={imageHeight}
                     />
                   </div>
                 ))}
+
+              {topTwentyRow ? (
+                <div className="topTwentyContainer">
+                  {numberImages
+                    .slice(rowBoxes[indexUpper], rowBoxes[indexUpper + 1])
+                    .map((image, index) => (
+                      <div
+                        key={`key${index}`}
+                        className="rowDiv topTenImagesDiv"
+                        style={{ width: `calc(88.6vw / ${numberOfImages})` }}
+                      >
+                        <img
+                          src={image}
+                          alt=""
+                          id={topTwentyImages}
+                          className="hideTopTwentyImages"
+                        />
+                      </div>
+                    ))}
+                </div>
+              ) : (
+                <div />
+              )}
             </div>
           ))}
         </div>
