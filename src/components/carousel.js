@@ -329,7 +329,6 @@ function fiveBoxElementsLeft(elementsSet, elementCenterSet, elementCenter) {
       'leftPositionVariant',
       'centerPositionMainVariant',
       'rightPositionVariant',
-      'centerPositionHiddenVariant',
     ]);
     elementCenterSet(4);
   }
@@ -494,4 +493,38 @@ function handleLeftClick(
   }
 }
 
-export { handleRightClick, handleLeftClick };
+const baseCoordsLower = [
+  'centerPositionMain',
+  'rightPosition',
+  'centerPositionHidden',
+  'centerPositionHidden',
+  'centerPositionHidden',
+  'centerPositionHidden',
+  'centerPositionHidden',
+  'centerPositionHidden',
+  'centerPositionHidden',
+  'centerPositionHidden',
+];
+
+const baseCoordsMiddle = [
+  'centerPositionMain',
+  'rightPosition',
+  'centerPositionHidden',
+  'centerPositionHidden',
+  'centerPositionHidden',
+];
+
+const baseCoordsUpper = [
+  'centerPositionMain',
+  'rightPosition',
+  'centerPositionHidden',
+  'centerPositionHidden',
+];
+
+export {
+  handleRightClick,
+  handleLeftClick,
+  baseCoordsLower,
+  baseCoordsMiddle,
+  baseCoordsUpper,
+};

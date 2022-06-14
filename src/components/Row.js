@@ -7,13 +7,20 @@ import React, { useState, useEffect } from 'react';
 import axios from './axios';
 import arrowRight from '../images/arrowRight.svg';
 import arrowLeft from '../images/arrowLeft.svg';
-import { handleRightClick, handleLeftClick } from './carousel';
+import {
+  handleRightClick,
+  handleLeftClick,
+  baseCoordsLower,
+  baseCoordsMiddle,
+  baseCoordsUpper,
+} from './carousel';
 import numberImages from './images';
 
 function Row({
   title,
   fetchURL,
   imagePath,
+  topRow,
   rowHeight,
   imageHeight,
   topTwentyImages,
@@ -30,19 +37,9 @@ function Row({
   const [numberOfImages, setNumberOfImages] = useState(5);
   const [rowBoxes, setRowBoxes] = useState([]);
   const size = useWindowSize();
-  const baseCoords = [
-    'centerPositionMain',
-    'rightPosition',
-    'centerPositionHidden',
-    'centerPositionHidden',
-    'centerPositionHidden',
-    'centerPositionHidden',
-    'centerPositionHidden',
-    'centerPositionHidden',
-    'centerPositionHidden',
-    'centerPositionHidden',
-  ];
-  const [elements, setElements] = useState(baseCoords);
+  const [topRowLeftArrowStyle, setTopRowLeftArrowStyle] = useState(topRow);
+
+  const [elements, setElements] = useState([]);
 
   function handleLeftArrow() {
     if (carouselActiveStatus === false) {
@@ -82,6 +79,7 @@ function Row({
         centerElement,
         numberOfBoxElements
       );
+      setTopRowLeftArrowStyle('');
       setClicked(true);
       setTimeout(() => {
         setClicked(false);
@@ -100,28 +98,40 @@ function Row({
   }, [fetchURL]);
 
   useEffect(() => {
+    setCenterElement(1);
+
     if (size.width > 1100) {
       setNumberOfBoxElements(4);
       setNumberOfImages(5);
       setRowBoxes([0, 5, 10, 15, 20]);
-      setCenterElement(1);
-      setElements(baseCoords);
+      setElements(baseCoordsUpper);
     } else if (size.width < 1100 && size.width > 600) {
       setNumberOfBoxElements(5);
       setNumberOfImages(4);
       setRowBoxes([0, 4, 8, 12, 16, 20]);
-      setElements(baseCoords);
+      setElements(baseCoordsMiddle);
     } else if (size.width < 600) {
       setNumberOfBoxElements(10);
       setNumberOfImages(2);
       setRowBoxes([0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]);
-      setElements(baseCoords);
+      setElements(baseCoordsLower);
     }
   }, [size]);
 
   return (
     <div className="row">
-      <h2 className="rowTitle">{title}</h2>
+      <div className="rowHeader">
+        <h2 className="rowTitle">{title}</h2>
+        <div className="sliderContainer">
+          {elements.map((element, index) => (
+            <div
+              key={`sliderBarKey${index}`}
+              className={`sliderElements slider${element}`}
+            />
+          ))}
+        </div>
+      </div>
+
       <div
         className="rowMain"
         onMouseEnter={() => handleLeftArrow()}
@@ -130,9 +140,13 @@ function Row({
           setLeftArrowState('arrowHide');
         }}
       >
-        <div className="arrowContainer">
+        <div
+          className="arrowContainer arrowDivLeftPadding"
+          id={topRowLeftArrowStyle}
+        >
           <div
             className={`arrowDiv ${leftArrowState}`}
+            id="rowLeftArrow"
             onClick={() => handleClickDelayLeft()}
           >
             <img
@@ -155,7 +169,11 @@ function Row({
                   >
                     <img
                       src={baseUrl + movie[imagePath]}
-                      alt={movie.original_title}
+                      alt={
+                        movie?.original_title ||
+                        movie?.original_name ||
+                        movie?.name
+                      }
                       className="rowImage"
                       style={{ width: `calc(88.6vw / ${numberOfImages})` }}
                       id={imageHeight}
@@ -188,7 +206,7 @@ function Row({
             </div>
           ))}
         </div>
-        <div className="arrowContainer">
+        <div className="arrowContainer arrowDivRightPadding">
           <div className="arrowDiv" onClick={() => handleClickDelayRight()}>
             <img
               src={arrowRight}
