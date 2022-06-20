@@ -16,7 +16,7 @@
   align-items: stretch;
   overflow: hidden;
   gap: 0.4vw;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .rowUpperContainer {
@@ -43,12 +43,7 @@
 
 #topTwentyImages {
   display: initial;
-  /* padding-left: 3.5vw; */
   height: 100%;
-
-  /* position: relative;
-  left: 15%; */
-  /* z-index: 1; */
 }
 
 
@@ -81,16 +76,12 @@
 }
 
 .rowImage {
-  width: calc(88.6vw / 5);
   border-radius: 3px;
 }
 
 .rowDiv {
-  width: calc(88.6vw / 5);
   border-radius: 3px;
   display: flex;
-  /* flex-direction: row-reverse;
-  align-items: center; */
 }
 
 .arrowContainer {
@@ -376,8 +367,6 @@
   width: 100%;
   position: absolute;
   top: calc(56.25vw - 7.5rem);
-  /* background-image: linear-gradient(180deg, transparent, rgba(37, 37, 37, 0.61), #141414); */
-
   background-image: linear-gradient(to top, #141414 0,rgba(0, 0, 0, 0) 100%);
 }
 
@@ -407,6 +396,8 @@
 .billBoardTitle {
   font-size: 4vw;
   font-weight: 800;
+  margin: 0;
+  
 }
 
 .billBoardOverview {
@@ -469,16 +460,12 @@
 
 #rightPosition{
   display: flex;
-  /* left: 91vw; */
-
   animation: slideLeftAnimationThree 0.6s cubic-bezier(.5,0,.1,1);
   animation-fill-mode: forwards; 
 }
 
 #leftPosition{
   display: flex;
-  /* left: -91vw; */
-
   animation: slideLeftAnimationTwo 0.6s cubic-bezier(.5,0,.1,1);
   animation-fill-mode: forwards; 
 }
@@ -527,16 +514,12 @@
 
 #rightPositionVariant{
   display: flex;
-  /* left: 91vw; */
-
   animation: slideRightAnimationThreeVariant 0.6s cubic-bezier(.5,0,.1,1);
   animation-fill-mode: forwards; 
 }
 
 #leftPositionVariant{
   display: flex;
-  /* left: -91vw; */
-
   animation: slideRightAnimationTwoVariant 0.6s cubic-bezier(.5,0,.1,1);
   animation-fill-mode: forwards; 
 }
@@ -572,8 +555,194 @@
   }
 }
 
+/* ----------------------------------CAROUSEL POPUPS---------------------------------- */
+
+.popUpContainer {
+  position: fixed;
+  z-index: 2000;
+
+}
+
+.popUpExpansion {
+  opacity: 0;
+  animation: popUpExpansionAnimation 1s cubic-bezier(.5,0,.1,1);
+  animation-fill-mode: forwards; 
+  box-shadow: rgb(0 0 0 / 75%) 0px 3px 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.popUpTrailerContainer {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.trailerError {
+  display: none;
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  font-size: 12px;
+  margin: 0;
+  text-align: center;
+}
+
+.showTrailerError {
+  display: initial !important;
+}
+
+.popUpImage {
+  position: absolute;
+  top: 0;
+}
+
+.popUpLowerContainer {
+  background-color: #141414;
+  padding: 1em;
+}
+
+.popUpButtonsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.playButtonTwo, .likeButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.likeButton {
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background-color: transparent;
+}
+
+.likeButton:hover {
+  border: 1px solid white;
+}
+
+.playButtonTwo {
+  background-color: white;
+  border: 1px solid white;
+}
+
+.playButtonTwo:hover {
+  animation: rotatePlayAnimation 1s cubic-bezier(.5,0,.1,1);
+  animation-fill-mode: forwards; 
+}
+
+
+.likeImage, .playButtonTwoImage, .muteImage  {
+  height: 13px;
+  width: auto;
+}
+
+.matchText {
+  color: #46d369;
+  font-size: 10px;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.hidePopUpimage {
+  animation: hidePopUpimageAnimation 0.5s cubic-bezier(.5,0,.1,1);
+  animation-fill-mode: forwards; 
+}
+
+.reactPlayerContianer {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.videoPlayerMuteDiv {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  background-color: rgba(42,42,42,.6);
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 50%;
+  height: 28px;
+  width: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.videoPlayerMuteDiv:hover {
+  border: 1px solid rgba(255,255,255);
+}
+
+.moviePopUpName {
+  margin: 0;
+  font-size: 10px;
+  max-width: calc(88.6vw / 5);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+
+@keyframes popUpExpansionAnimation {
+  0% {
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 100%;
+  }
+}
+
+
+
+@keyframes hidePopUpimageAnimation {
+  0% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes rotatePlayAnimation {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
 
 /*------------------------- screen widths -------------------------*/
+
+@media only screen and (min-width: 1100px) {
+  .rowDiv, .popUpTrailerContainer, .popUpImage, .rowImage {
+    width: calc(88.6vw / 5);
+  }
+  .popUpTrailerContainer, .popUpImage {
+    height: 10.5vw;
+  }
+  #verticalImagePopUp {
+    width: calc(88.6vw / 12);
+  }
+  .moviePopUpName {
+    max-width: calc(88.6vw / 6);
+  }
+}
 
 @media only screen and (max-width: 1100px){
   .rowHeight{
@@ -581,6 +750,25 @@
   }
   #rowHeightLarge {
     height: 17vw;
+  }
+  .rowDiv, .popUpTrailerContainer, .popUpImage, .rowImage {
+    width: calc(88.6vw / 4);
+  }
+  .popUpTrailerContainer, .popUpImage {
+    height: 12.5vw;
+  }
+  #verticalImagePopUp {
+    width: calc(88.6vw / 12);
+  }
+  .moviePopUpName {
+    max-width: calc(88.6vw / 5);
+  }
+  .likeImage, .playButtonTwoImage, .muteImage  {
+    height: 10px;
+  }
+  .videoPlayerMuteDiv, .playButtonTwo, .likeButton {
+    height: 23px;
+    width: 23px;
   }
 }
 
@@ -610,6 +798,17 @@
   }
   .billBoardBtn p {
     font-size: 0.9rem;
+  }
+  .videoPlayerMuteDiv, .playButtonTwo, .likeButton {
+    height: 18px;
+    width: 18px;
+  }
+  .trailerError, .moviePopUpName, .matchText {
+    font-size: 9px;
+  }
+  .billBoardOverview {
+    max-height: 50px;
+    overflow: hidden;
   }
 }
 
@@ -649,5 +848,23 @@
   }
   #rowHeightLarge {
     height: 34vw;
+  }
+  .rowDiv, .popUpTrailerContainer, .popUpImage, .rowImage {
+    width: calc(88.6vw / 2);
+  }
+  .rowImage {
+    width: calc(88.6vw / 2);
+  }
+  .popUpTrailerContainer, .popUpImage {
+    height: 26vw;
+  }
+  #verticalImagePopUp {
+    width: calc(88.6vw / 5);
+  }
+  .moviePopUpName {
+    max-width: calc(88.6vw / 2.5);
+  }
+  .billBoardTitle {
+    font-size: 3vw;
   }
 }

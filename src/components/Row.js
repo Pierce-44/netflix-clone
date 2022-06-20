@@ -3,8 +3,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import movieTrailer from 'movie-trailer';
+import ReactPlayer from 'react-player';
 import axios from './axios';
+import dataProps from './Context';
 import arrowRight from '../images/arrowRight.svg';
 import arrowLeft from '../images/arrowLeft.svg';
 import {
@@ -15,8 +19,15 @@ import {
   baseCoordsUpper,
 } from './carousel';
 import numberImages from './images';
+import likeImage from '../images/like.svg';
+import likedImage from '../images/liked.svg';
+import playImage from '../images/play.svg';
+import muteIcon from '../images/muteIcon.svg';
+import unMuteIcon from '../images/unMuteIcon.svg';
 
 function Row({
+  rowID,
+  rowHover,
   title,
   fetchURL,
   imagePath,
@@ -34,12 +45,17 @@ function Row({
   const [centerElement, setCenterElement] = useState(1);
   const [clicked, setClicked] = useState(false);
   const [numberOfBoxElements, setNumberOfBoxElements] = useState(4);
-  const [numberOfImages, setNumberOfImages] = useState(5);
   const [rowBoxes, setRowBoxes] = useState([]);
   const size = useWindowSize();
   const [topRowLeftArrowStyle, setTopRowLeftArrowStyle] = useState(topRow);
-
+  const [popUpImageUrl, setPopUpImageUrl] = useState();
+  const [popUpActive, setPopUpActive] = useState(false);
+  const [trailerID, setTrailerID] = useState('');
+  const [leftPosition, setLeftPosition] = useState('');
+  const [topPosition, setTopPosition] = useState('');
   const [elements, setElements] = useState([]);
+
+  const boxRef = useRef();
 
   function handleLeftArrow() {
     if (carouselActiveStatus === false) {
@@ -87,11 +103,14 @@ function Row({
     }
   }
 
+  function handleScroll() {
+    setPopUpActive(false);
+  }
+
   useEffect(() => {
     async function fetchData() {
       const request = await axios.get(fetchURL);
       setMovies(request.data.results);
-      // console.log(request.data.results);
       return request;
     }
     fetchData();
@@ -102,24 +121,36 @@ function Row({
 
     if (size.width > 1100) {
       setNumberOfBoxElements(4);
-      setNumberOfImages(5);
       setRowBoxes([0, 5, 10, 15, 20]);
       setElements(baseCoordsUpper);
     } else if (size.width < 1100 && size.width > 600) {
       setNumberOfBoxElements(5);
-      setNumberOfImages(4);
       setRowBoxes([0, 4, 8, 12, 16, 20]);
       setElements(baseCoordsMiddle);
     } else if (size.width < 600) {
       setNumberOfBoxElements(10);
-      setNumberOfImages(2);
       setRowBoxes([0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]);
       setElements(baseCoordsLower);
     }
   }, [size]);
 
+  useEffect(() => {
+    if (rowHover !== rowID) {
+      setPopUpActive(false);
+    }
+  }, [rowHover]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="row">
+    <div className="row" onMouseLeave={() => setPopUpActive(false)}>
       <div className="rowHeader">
         <h2 className="rowTitle">{title}</h2>
         <div className="sliderContainer">
@@ -134,7 +165,9 @@ function Row({
 
       <div
         className="rowMain"
-        onMouseEnter={() => handleLeftArrow()}
+        onMouseEnter={() => {
+          handleLeftArrow();
+        }}
         onMouseLeave={() => {
           setArrowState('arrowHide');
           setLeftArrowState('arrowHide');
@@ -162,11 +195,7 @@ function Row({
               {movies
                 .slice(rowBoxes[indexUpper], rowBoxes[indexUpper + 1])
                 .map((movie, index) => (
-                  <div
-                    key={`key${index}`}
-                    className="rowDiv"
-                    style={{ width: `calc(88.6vw / ${numberOfImages})` }}
-                  >
+                  <div key={`key${index}`} className="rowDiv">
                     <img
                       src={baseUrl + movie[imagePath]}
                       alt={
@@ -175,8 +204,23 @@ function Row({
                         movie?.name
                       }
                       className="rowImage"
-                      style={{ width: `calc(88.6vw / ${numberOfImages})` }}
                       id={imageHeight}
+                      ref={boxRef}
+                      tmbdid={
+                        movie?.original_title ||
+                        movie?.original_name ||
+                        movie?.name
+                      }
+                      onMouseEnter={(e) => {
+                        setPopUpImageUrl(e.target.getAttribute('src'));
+                        setLeftPosition(e.target.getBoundingClientRect().left);
+                        setTopPosition(e.target.getBoundingClientRect().top);
+                        setTrailerID(e.target.getAttribute('tmbdid'));
+
+                        setTimeout(() => {
+                          setPopUpActive(true);
+                        }, 1);
+                      }}
                     />
                   </div>
                 ))}
@@ -189,7 +233,6 @@ function Row({
                       <div
                         key={`key${index}`}
                         className="rowDiv topTenImagesDiv"
-                        style={{ width: `calc(88.6vw / ${numberOfImages})` }}
                       >
                         <img
                           src={image}
@@ -214,6 +257,132 @@ function Row({
               className={`arrowImg ${arrowState}`}
             />
           </div>
+        </div>
+      </div>
+      <section
+        className="popUpContainer"
+        style={{
+          top: topPosition,
+          left: leftPosition,
+        }}
+      >
+        {popUpActive ? (
+          <PopUp
+            popUpImageUrl={popUpImageUrl}
+            setPopUpActive={setPopUpActive}
+            trailerID={trailerID}
+            imageHeight={imageHeight}
+          />
+        ) : (
+          <div />
+        )}
+      </section>
+    </div>
+  );
+}
+
+function PopUp({ popUpImageUrl, setPopUpActive, trailerID, imageHeight }) {
+  const [playTrailer, setPlayTrailer] = useState('showPopUpimage');
+  const [trailerAddress, setTrailerAddress] = useState();
+  const [trailerError, setTrailerError] = useState('');
+  const [showTrailerError, setShowTrailerError] = useState('');
+  const [randomNumb, setRandomNumb] = useState();
+  const [renderTrailerDiv, setRenderTrailerDiv] = useState(false);
+  const [muteStatus, setMuteStatus] = useState(true);
+  const [likedStatus, setLikedStatus] = useState(false);
+  const { setMovieURL } = useContext(dataProps);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setRandomNumb(Math.floor(Math.random() * 101));
+
+    movieTrailer(trailerID || '')
+      .then((response) => {
+        setTrailerAddress(response);
+        setMovieURL(response);
+        if (response === null) {
+          setTrailerError('Sorry trailer is currently not available');
+        }
+      })
+      .catch((error) => console.log(error));
+
+    setTimeout(() => {
+      setPlayTrailer('hidePopUpimage');
+      setShowTrailerError('showTrailerError');
+      setRenderTrailerDiv(true);
+    }, 2000);
+  }, []);
+
+  return (
+    <div
+      className="popUpExpansion testBlurr"
+      onMouseLeave={() => {
+        setPopUpActive(false);
+      }}
+    >
+      <div className="popUpTrailerContainer">
+        {renderTrailerDiv ? (
+          <div className="reactPlayerContianer">
+            <ReactPlayer
+              id="fullScreenVideo"
+              url={trailerAddress}
+              width="100%"
+              height="100%"
+              volume={1}
+              muted={muteStatus}
+              playing
+              loop
+            />
+
+            <div
+              className="videoPlayerMuteDiv"
+              onClick={() => setMuteStatus(!muteStatus)}
+            >
+              <img
+                className="muteImage"
+                src={muteStatus ? muteIcon : unMuteIcon}
+                alt="mute"
+              />
+            </div>
+          </div>
+        ) : (
+          <div />
+        )}
+
+        <img
+          className={`popUpImage ${playTrailer}`}
+          id={`${imageHeight}PopUp`}
+          src={popUpImageUrl}
+          alt=""
+        />
+        <p className={`trailerError ${showTrailerError}`}>{trailerError}</p>
+      </div>
+
+      <div className="popUpLowerContainer">
+        <div className="popUpButtonsContainer">
+          <button
+            type="button"
+            className="playButtonTwo"
+            onClick={() => navigate('/watch')}
+          >
+            <img src={playImage} alt="play" className="playButtonTwoImage" />
+          </button>
+          <button
+            type="button"
+            className="likeButton"
+            onClick={() => setLikedStatus(!likedStatus)}
+          >
+            <img
+              src={likedStatus ? likedImage : likeImage}
+              alt="like"
+              className="likeImage"
+            />
+          </button>
+        </div>
+        <div>
+          <p className="matchText">{`${randomNumb}% Match`}</p>
+          <p className="moviePopUpName">{trailerID}</p>
         </div>
       </div>
     </div>
