@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-use-before-define */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -5,6 +6,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSwipeable } from 'react-swipeable';
 import movieTrailer from 'movie-trailer';
 import ReactPlayer from 'react-player';
 import axios from './axios';
@@ -103,6 +105,14 @@ function Row({
     }
   }
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleClickDelayRight(),
+    onSwipedRight: () => handleClickDelayLeft(),
+    swipeDuration: Infinity,
+    preventScrollOnSwipe: true,
+    trackMouse: true,
+  });
+
   function handleScroll() {
     setPopUpActive(false);
   }
@@ -150,7 +160,11 @@ function Row({
   }, []);
 
   return (
-    <div className="row" onMouseLeave={() => setPopUpActive(false)}>
+    <div
+      {...handlers}
+      className="row"
+      onMouseLeave={() => setPopUpActive(false)}
+    >
       <div className="rowHeader">
         <h2 className="rowTitle">{title}</h2>
         <div className="sliderContainer">
@@ -219,7 +233,7 @@ function Row({
 
                         setTimeout(() => {
                           setPopUpActive(true);
-                        }, 1);
+                        }, 100);
                       }}
                     />
                   </div>
@@ -264,6 +278,13 @@ function Row({
         style={{
           top: topPosition,
           left: leftPosition,
+        }}
+        onMouseEnter={() => {
+          handleLeftArrow();
+        }}
+        onMouseLeave={() => {
+          setArrowState('arrowHide');
+          setLeftArrowState('arrowHide');
         }}
       >
         {popUpActive ? (

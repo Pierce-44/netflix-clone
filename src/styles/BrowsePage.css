@@ -597,6 +597,7 @@
 .popUpImage {
   position: absolute;
   top: 0;
+  pointer-events: none;
 }
 
 .popUpLowerContainer {
@@ -742,6 +743,7 @@
   .moviePopUpName {
     max-width: calc(88.6vw / 6);
   }
+
 }
 
 @media only screen and (max-width: 1100px){
@@ -839,6 +841,9 @@
   }
   .browsePageHeaderLogo {
     height: 14px;
+  }
+  .sliderContainer {
+    opacity: 100;
   }
 }
 
