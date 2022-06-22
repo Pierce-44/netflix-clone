@@ -39,7 +39,7 @@ function Row({
   topTwentyImages,
   topTwentyRow,
 }) {
-  const baseUrl = 'https://image.tmdb.org/t/p/w400/';
+  const baseUrl = 'https://image.tmdb.org/t/p/w300/';
   const [movies, setMovies] = useState([]);
   const [arrowState, setArrowState] = useState('arrowHide');
   const [leftArrowState, setLeftArrowState] = useState('arrowHide');
@@ -370,13 +370,15 @@ function PopUp({ popUpImageUrl, setPopUpActive, trailerID, imageHeight }) {
         ) : (
           <div />
         )}
+        <div className={playTrailer}>
+          <img
+            className="popUpImage"
+            id={`${imageHeight}PopUp`}
+            src={popUpImageUrl}
+            alt=""
+          />
+        </div>
 
-        <img
-          className={`popUpImage ${playTrailer}`}
-          id={`${imageHeight}PopUp`}
-          src={popUpImageUrl}
-          alt=""
-        />
         <p className={`trailerError ${showTrailerError}`}>{trailerError}</p>
       </div>
 

@@ -4,6 +4,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import movieTrailer from 'movie-trailer';
+import ClipLoader from 'react-spinners/ClipLoader';
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import firebaseConfig from './fireBaseConfig';
@@ -23,16 +24,31 @@ const auth = getAuth();
 
 function BrowsePage() {
   const [userStatus, setUserStatus] = useState(false);
+  const [loadStatus, setLoadStatus] = useState(false);
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setUserStatus(true);
+    } else {
+      setLoadStatus(true);
     }
   });
 
   return (
     <div>
-      <section>{userStatus ? <BrowseMain /> : <SignInPage />}</section>
+      {userStatus ? (
+        <section>{userStatus ? <BrowseMain /> : <SignInPage />}</section>
+      ) : (
+        <section>{loadStatus ? <SignInPage /> : <LoaderPage />}</section>
+      )}
+    </div>
+  );
+}
+
+function LoaderPage() {
+  return (
+    <div className="loadingPage">
+      <ClipLoader color="red" size={100} />
     </div>
   );
 }
@@ -40,6 +56,7 @@ function BrowsePage() {
 function BrowseMain() {
   const navigate = useNavigate();
   const [movie, setMovie] = useState([]);
+  const [loadingStatus, setLoadingStatus] = useState('');
   const [headerBackground, setHeaderBackground] = useState(false);
   const [displayProfile, setDisplayProfile] = useState(false);
   const [rowHover, setRowHover] = useState('');
@@ -99,6 +116,10 @@ function BrowseMain() {
 
   return (
     <div className="browsePageMain">
+      <div className={loadingStatus}>
+        <LoaderPage />
+      </div>
+
       <div
         className={`browsePageHeader ${
           headerBackground && 'headerBackgroundDark'
@@ -144,13 +165,11 @@ function BrowseMain() {
       </div>
       <div className="billBoard">
         <div className="billBoardImgContainer">
-          <div
+          <img
             className="billBoardImg"
-            style={{
-              backgroundImage: `url(
-              "https://image.tmdb.org/t/p/original/${movie?.backdrop_path}"
-            )`,
-            }}
+            src={`https://image.tmdb.org/t/p/w1280/${movie?.backdrop_path}`}
+            alt=""
+            onLoad={() => setLoadingStatus('hideLoaderPage')}
           />
           <div className="billBoardGradient" />
           <div className="billBoardBlurr" />
