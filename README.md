@@ -1,4 +1,8 @@
-# React Netflix Clone App
+<div align="center">
+  <img src="https://openmoji.org/data/color/svg/1F4D1.svg" height="100px"/>
+</div>
+
+# Netflix React Clone App
 
 
 
