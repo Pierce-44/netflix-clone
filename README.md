@@ -40,24 +40,32 @@ A Netflix clone app that was built with React, CSS, and HTML, that utilises Fire
 <br/>
 
 ## How to Install and Run the Project Locally:
-#### - Please follow the following steps if you would like to install and run the porject locally on `http://localhost:3000/`:
+#### - Please follow the following steps if you would like to install and run the porject locally on http://localhost:3000/:
 
 1. Get a free API Key at 
 
-   [`https://example.com`](https://example.com)
+   [`https://example.com`](https://example.com) 
 
 2. Clone the repository to your local folder of choice
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   
+   git clone git@github.com:Pierce-44/netflix-clone.git
    ```
-   
+
 3. If not done already install NPM packages
    ```sh
    npm install
    ```
-   
-4. Enter your created API in `config.js`
+
+4. Within `src/components/requests.js` replace 
+    ```js
+    import api from '../api/APIKEY';
+    ```
+   with the following constant that includes your created API key from section 1
    ```js
-   const API_KEY = 'ENTER YOUR API';
+   const api = 'ENTER YOUR API';
+   ```
+
+5. Start the app on your localhost
+   ```js
+   npm start
    ```
