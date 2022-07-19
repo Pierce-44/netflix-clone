@@ -34,3 +34,5 @@ A Netflix clone app that was built with React, CSS, and HTML, that utilises Fire
 ### Register with a throwaway email address and password:
 
 ![netflixSignUp](https://user-images.githubusercontent.com/96740762/179787912-753b522b-150b-4300-9b7e-f97242722127.gif)
+
+### This creates a user through FireBase authentication, your user details can now be used to login and out of the application.
