@@ -3,7 +3,7 @@
 </div>
 
 # Netflix React Clone App
-A Netflix clone app that was built with React, CSS, and HTML, that utlilises FireBase for authentication, and WEBM api to gather movies/series data. This app was designed, developed and conducted to be submitted as my assignment for <img src="https://www.theodinproject.com/assets/icons/odin-icon-b5b31c073f7417a257003166c98cc23743654715305910c068b93a3bf4d3065d.svg"  width="20" height="20"> [The Odin Project Fullstack JavaScript Final Project](https://www.theodinproject.com/lessons/node-path-javascript-javascript-final-project)
+A Netflix clone app that was built with React, CSS, and HTML, that utilises FireBase for authentication, and WEBM api to gather movies/series data. This app was designed, developed and conducted to be submitted as my assignment for <img src="https://www.theodinproject.com/assets/icons/odin-icon-b5b31c073f7417a257003166c98cc23743654715305910c068b93a3bf4d3065d.svg"  width="20" height="20"> [The Odin Project Fullstack JavaScript Final Project](https://www.theodinproject.com/lessons/node-path-javascript-javascript-final-project)
 
 ![netflixGif](https://user-images.githubusercontent.com/96740762/179763864-59a1151e-ed3c-484e-b3e6-05646e1cddb2.gif)
 
@@ -21,7 +21,8 @@ A Netflix clone app that was built with React, CSS, and HTML, that utlilises Fir
 ## Features:
 - Sign up and log in with an email through FireBase authentication.
 - Carousel that can infinitely loop through movies and series in both direction without the need to return in the opposite direction when you get to the end of the carousel.
-- When hovering over a movie a popup is generated that autoplays the movie trailer as well as displays information related to the movie.
+- When hovering over a movie a pop-up is generated that autoplays the YouTube movie trailer as well as displays information related to the movie.
+- Playing a movie opens a separate full screen page that plays the movie (YouTube trailer)
 
 ## How To Use:
 
