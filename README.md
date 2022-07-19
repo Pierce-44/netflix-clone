@@ -28,10 +28,11 @@ A Netflix clone app that was built with React, CSS, and HTML, that utilises Fire
 
 ## How To Use:
 
-### Open the live app at the following address:
-### [`https://netflix-clone-model.web.app/`](https://netflix-clone-model.web.app/)
+1. Open the live app at the following address:
 
-### Register with a throwaway email address and password:
+   [`https://netflix-clone-model.web.app/`](https://netflix-clone-model.web.app/)
+
+3. Register with a throwaway email address and password:
 
 ![netflixSignUp](https://user-images.githubusercontent.com/96740762/179787912-753b522b-150b-4300-9b7e-f97242722127.gif)
 
@@ -39,14 +40,24 @@ A Netflix clone app that was built with React, CSS, and HTML, that utilises Fire
 <br/>
 
 ## How to Install and Run the Project Locally:
-- Please follow the following steps if you would like to install and run the porject locally on `http://localhost:3000/`:
+#### - Please follow the following steps if you would like to install and run the porject locally on `http://localhost:3000/`:
 
-### 1. Get a free API Key at [`https://example.com`](https://example.com)
-### 2. Clone the repo
-```sh
-git clone https://github.com/your_username_/Project-Name.git
-```
-### 3. If not done already install NPM packages
-```sh
-npm install
-```
+1. Get a free API Key at 
+
+   [`https://example.com`](https://example.com)
+
+2. Clone the repository to your local folder of choice
+   ```sh
+   git clone https://github.com/your_username_/Project-Name.git
+   
+   ```
+   
+3. If not done already install NPM packages
+   ```sh
+   npm install
+   ```
+   
+4. Enter your created API in `config.js`
+   ```js
+   const API_KEY = 'ENTER YOUR API';
+   ```
