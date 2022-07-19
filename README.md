@@ -3,7 +3,7 @@
 </div>
 
 # Netflix React Clone App
-A Netflix clone app that was built with React, CSS, and HTML, that utilises FireBase for authentication, and WEBM api to gather movies/series data. This app was designed, developed and conducted to be submitted as my assignment for <img src="https://www.theodinproject.com/assets/icons/odin-icon-b5b31c073f7417a257003166c98cc23743654715305910c068b93a3bf4d3065d.svg"  width="20" height="20"> [The Odin Project Fullstack JavaScript Final Project](https://www.theodinproject.com/lessons/node-path-javascript-javascript-final-project)
+A Netflix clone app that was built with React, CSS, and HTML, that utilises FireBase for authentication, and TMDB api to gather movies/series data. This app was designed, developed and conducted to be submitted as my assignment for <img src="https://www.theodinproject.com/assets/icons/odin-icon-b5b31c073f7417a257003166c98cc23743654715305910c068b93a3bf4d3065d.svg"  width="20" height="20"> [The Odin Project Fullstack JavaScript Final Project](https://www.theodinproject.com/lessons/node-path-javascript-javascript-final-project)
 
 ![netflixGif](https://user-images.githubusercontent.com/96740762/179763864-59a1151e-ed3c-484e-b3e6-05646e1cddb2.gif)
 
