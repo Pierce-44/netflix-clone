@@ -7,6 +7,7 @@ A Netflix clone app that was built with React, CSS, and HTML, that utilises Fire
 
 ![netflixGif](https://user-images.githubusercontent.com/96740762/179763864-59a1151e-ed3c-484e-b3e6-05646e1cddb2.gif)
 
+<br/>
 
 ## Built With:
 <div>
@@ -16,15 +17,20 @@ A Netflix clone app that was built with React, CSS, and HTML, that utilises Fire
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" title="React" alt="React" width="35" height="35"/>&nbsp;
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" title="Firebase" alt="Firebase" width="35" height="35"/>&nbsp;
 </div>
-
+<br/>
 
 ## Features:
 - Sign up and log in with an email through FireBase authentication.
 - Carousel that can infinitely loop through movies and series in both direction without the need to return in the opposite direction when you get to the end of the carousel.
 - When hovering over a movie a pop-up is generated that autoplays the YouTube movie trailer as well as displays information related to the movie.
 - Playing a movie opens a separate full screen page that plays the movie (YouTube trailer)
+<br/>
 
 ## How To Use:
 
+### Open the live app at the following address:
+### [`https://netflix-clone-model.web.app/`](https://netflix-clone-model.web.app/)
 
-### `npm start`
+### Register with a throwaway email address and password:
+
+![netflixSignUp](https://user-images.githubusercontent.com/96740762/179787912-753b522b-150b-4300-9b7e-f97242722127.gif)
