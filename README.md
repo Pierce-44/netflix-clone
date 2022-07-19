@@ -51,18 +51,19 @@ A Netflix clone app that was built with React, CSS, and HTML, that utilises Fire
    git clone git@github.com:Pierce-44/netflix-clone.git
    ```
 
-3. If not done already install NPM packages
-   ```sh
-   npm install
-   ```
 
-4. Within `src/components/requests.js` replace 
+3. Within `src/components/requests.js` replace 
     ```js
     import api from '../api/APIKEY';
     ```
    with the following constant that includes your created API key from section 1
    ```js
    const api = 'ENTER YOUR API';
+   ```
+
+4. Install NPM packages
+   ```sh
+   npm install
    ```
 
 5. Start the app on your localhost
