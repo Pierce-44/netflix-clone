@@ -42,9 +42,9 @@ A Netflix clone app that was built with React, CSS, and HTML, that utilises Fire
 ## How to Install and Run the Project Locally:
 #### - Please follow the following steps if you would like to install and run the porject locally on http://localhost:3000/:
 
-1. Get a free API Key at 
+1. Create a free account with [TMDB](https://www.themoviedb.org/signup) and then follow their instructions in the linked guide below to create your own personal API key:
 
-   [`https://example.com`](https://example.com) 
+   [`TMDB API Guide`](https://developers.themoviedb.org/3/getting-started/introduction) 
 
 2. Clone the repository to your local folder of choice
    ```sh
@@ -56,7 +56,7 @@ A Netflix clone app that was built with React, CSS, and HTML, that utilises Fire
     ```js
     import api from '../api/APIKEY';
     ```
-   with the following constant that includes your created API key from section 1
+   with the following constant that includes your personal TMDB API key from section 1
    ```js
    const api = 'ENTER YOUR API';
    ```
