@@ -36,3 +36,17 @@ A Netflix clone app that was built with React, CSS, and HTML, that utilises Fire
 ![netflixSignUp](https://user-images.githubusercontent.com/96740762/179787912-753b522b-150b-4300-9b7e-f97242722127.gif)
 
 - This creates a user through FireBase authentication, your user details can now be used to log in and out of the application.
+<br/>
+
+## How to Install and Run the Project Locally:
+- Please follow the following steps if you would like to install and run the porject locally on `http://localhost:3000/`:
+
+### 1. Get a free API Key at [`https://example.com`](https://example.com)
+### 2. Clone the repo
+```sh
+git clone https://github.com/your_username_/Project-Name.git
+```
+### 3. If not done already install NPM packages
+```sh
+npm install
+```
