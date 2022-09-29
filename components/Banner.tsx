@@ -14,20 +14,33 @@ export default function Banner({ bannerInfo }: Props) {
 
   return (
     <div className="h-[54vw] realtive">
-      <div className="absolute top-[19vw]  left-0 h-[35vw] w-full to-transparent from-[#141414] z-10 bg-gradient-to-t"></div>
       {selectedMovie ? (
-        <div className="relative h-full w-full">
-          <Image
-            src={`https://image.tmdb.org/t/p/original${
-              bannerInfo[selectedMovie].backdrop_path ||
-              bannerInfo[selectedMovie].poster_path
-            }`}
-            alt="movie"
-            className="object-cover"
-            layout="fill"
-            priority
-          />
-        </div>
+        <>
+          {' '}
+          <div className="pl-[5vw] absolute top-0 left-0 flex-col h-[54vw] w-full z-30 flex items-start justify-center">
+            <p className="drop-shadow-2xl shadow-black text-3xl md:text-5xl pb-6 font-semibold">
+              {bannerInfo[selectedMovie].title ||
+                bannerInfo[selectedMovie].name ||
+                bannerInfo[selectedMovie].origional_name}
+            </p>
+            <p className="hidden sm:flex md:text-base text-sm drop-shadow-2xl shadow-black max-w-[500px]">
+              {bannerInfo[selectedMovie].overview}
+            </p>
+          </div>
+          <div className="absolute top-[19vw]  left-0 h-[35vw] w-full to-transparent from-[#141414] z-10 bg-gradient-to-t"></div>
+          <div className="relative h-full w-full">
+            <Image
+              src={`https://image.tmdb.org/t/p/original${
+                bannerInfo[selectedMovie].backdrop_path ||
+                bannerInfo[selectedMovie].poster_path
+              }`}
+              alt="movie"
+              className="object-cover"
+              layout="fill"
+              priority
+            />
+          </div>
+        </>
       ) : (
         ''
       )}

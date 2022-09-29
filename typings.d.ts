@@ -6,6 +6,7 @@ interface MovieInfo {
   media_type: string;
   original_language: string;
   original_title: string;
+  origional_name: string;
   overview: string;
   popularity: number;
   poster_path: string;
@@ -14,6 +15,7 @@ interface MovieInfo {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  name: string;
 }
 
 export interface RowData {
