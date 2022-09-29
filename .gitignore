@@ -12,6 +12,9 @@
 /.next/
 /out/
 
+# api
+/util/api
+
 # production
 /build
 
