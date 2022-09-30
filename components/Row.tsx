@@ -5,6 +5,7 @@ import useWindowWidth from '../hooks/useWindowWidth';
 import { RowData } from '../typings';
 import { sectionsNameArray } from '../util/fetchMovieData';
 import handleCarousel from '../util/handleCarousel';
+import Modal from './Modal';
 
 interface Props {
   rowData: RowData;
@@ -17,6 +18,8 @@ export default function Row({ rowData, index }: Props) {
   const [showRightNavTab, setShowRightNavTab] = React.useState(true);
   const [factorLimit, setFactorLimit] = React.useState<number | null>(null);
   const [factor, setFactor] = React.useState(0);
+  const [movieRef, setMovieRef] = React.useState<null | number>(null);
+  const [modal, setModal] = React.useState(false);
 
   const widthRef = React.useRef<HTMLDivElement>(null);
 
@@ -61,6 +64,11 @@ export default function Row({ rowData, index }: Props) {
       onMouseEnter={() => setShowNavTabs(true)}
       onMouseLeave={() => setShowNavTabs(false)}
     >
+      {modal && movieRef !== null ? (
+        <Modal movieInfo={rowData.results[movieRef]} />
+      ) : (
+        ''
+      )}
       <p className="text-lg pb-2 font-semibold">{sectionsNameArray[index]}</p>
       <div
         className="flex relative justify-start items-center w-full 
@@ -107,15 +115,23 @@ export default function Row({ rowData, index }: Props) {
             }}
           >
             <div className="mx-[5px] h-full relative ">
-              <Image
-                src={`https://image.tmdb.org/t/p/w500${
-                  movieInfo.backdrop_path || movieInfo.poster_path
-                }`}
-                alt="movie"
-                className="object-cover rounded-sm "
-                layout="fill"
-                draggable="false"
-              />
+              <button
+                className="w-full h-full"
+                onClick={() => {
+                  setModal(true);
+                  setMovieRef(index);
+                }}
+              >
+                <Image
+                  src={`https://image.tmdb.org/t/p/w500${
+                    movieInfo.backdrop_path || movieInfo.poster_path
+                  }`}
+                  alt="movie"
+                  className="object-cover rounded-sm "
+                  layout="fill"
+                  draggable="false"
+                />
+              </button>
             </div>
           </div>
         ))}
