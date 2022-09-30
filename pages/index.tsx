@@ -19,7 +19,7 @@ const Home = ({ data }: Props) => {
       </Head>
       <Header />
       <Banner bannerInfo={data[0].results} />
-      <div className="absolute z-20 w-full overflow-hidden top-[40vw] left-0">
+      <div className="absolute z-40 w-full overflow-hidden top-[40vw] left-0">
         {data.map((rowData, index) => (
           <Row key={index} rowData={rowData} index={index} />
         ))}
