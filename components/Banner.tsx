@@ -18,12 +18,12 @@ export default function Banner({ bannerInfo }: Props) {
         <>
           {' '}
           <div className="pl-[5vw] absolute top-0 left-0 flex-col h-[54vw] w-full z-30 flex items-start justify-center">
-            <p className="drop-shadow-2xl shadow-black text-3xl md:text-5xl pb-6 font-semibold">
+            <p className="textShadow text-xl sm:text-3xl md:text-5xl pb-6 font-semibold">
               {bannerInfo[selectedMovie].title ||
                 bannerInfo[selectedMovie].name ||
                 bannerInfo[selectedMovie].origional_name}
             </p>
-            <p className="hidden sm:flex md:text-base text-sm drop-shadow-2xl shadow-black max-w-[500px]">
+            <p className="textShadow hidden sm:flex md:text-base text-sm max-w-[500px]">
               {bannerInfo[selectedMovie].overview}
             </p>
           </div>
