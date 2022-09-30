@@ -13,7 +13,7 @@
 /out/
 
 # api
-/util/api
+/util/api.ts
 
 # production
 /build
