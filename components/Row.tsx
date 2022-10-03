@@ -130,6 +130,7 @@ export default function Row({ rowData, index }: Props) {
                   className="object-cover rounded-sm "
                   layout="fill"
                   draggable="false"
+                  priority
                 />
               </button>
             </div>

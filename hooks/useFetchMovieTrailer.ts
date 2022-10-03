@@ -19,6 +19,7 @@ export default function useFetchMovieTrailer({ movieInfo, setTrailer }: Props) {
           movieInfo.id
         }?api_key=${api}&language=en-US&append_to_response=videos`
       ).then((response) => response.json());
+      // if the response has videos filter out the trailer video
       if (data?.videos) {
         const index = data.videos.results.findIndex(
           (element: any) => element.type === 'Trailer'

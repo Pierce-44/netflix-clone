@@ -1,4 +1,5 @@
 import { requests } from './requests';
+import { RowData } from '../typings';
 
 export default async function fetchMovieData() {
   const [
@@ -14,7 +15,7 @@ export default async function fetchMovieData() {
     fetchSienceFiction,
     fetchDocumentaries,
     fetchWesternMovies,
-  ] = await Promise.all([
+  ]: RowData[] = await Promise.all([
     fetch(requests.fetchTrending).then((res) => res.json()),
     fetch(requests.fetchNetflixOrigionals).then((res) => res.json()),
     fetch(requests.fetchTopRated).then((res) => res.json()),

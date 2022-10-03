@@ -7,9 +7,10 @@ import fetchMovieData from '../util/fetchMovieData';
 
 interface Props {
   data: RowData[];
+  randomNumb: number;
 }
 
-const Home = ({ data }: Props) => {
+const Home = ({ data, randomNumb }: Props) => {
   return (
     <div className="relative h-screen text-[#e5e5e5]">
       <Head>
@@ -18,7 +19,7 @@ const Home = ({ data }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <Banner bannerInfo={data[0].results} />
+      <Banner movieInfo={data[0].results[randomNumb]} />
       <div className="absolute z-40 w-full overflow-hidden top-[40vw] left-0">
         {data.map((rowData, index) => (
           <Row key={index} rowData={rowData} index={index} />
@@ -31,9 +32,12 @@ const Home = ({ data }: Props) => {
 export async function getServerSideProps() {
   const data = await fetchMovieData();
 
+  const randomNumb = Math.floor(Math.random() * 19);
+
   return {
     props: {
       data: data,
+      randomNumb: randomNumb,
     },
   };
 }
