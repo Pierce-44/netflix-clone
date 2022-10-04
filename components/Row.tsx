@@ -10,9 +10,10 @@ import Modal from './Modal';
 interface Props {
   rowData: RowData;
   index: number;
+  setHeaderBlack: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Row({ rowData, index }: Props) {
+export default function Row({ rowData, index, setHeaderBlack }: Props) {
   const [showNavTabs, setShowNavTabs] = React.useState(false);
   const [showLeftNavTab, setShowLeftNavTab] = React.useState(false);
   const [showRightNavTab, setShowRightNavTab] = React.useState(true);
@@ -65,7 +66,12 @@ export default function Row({ rowData, index }: Props) {
       onMouseLeave={() => setShowNavTabs(false)}
     >
       {modal && movieRef !== null ? (
-        <Modal movieInfo={rowData.results[movieRef]} />
+        <Modal
+          movieInfo={rowData.results[movieRef]}
+          setModal={setModal}
+          setMovieRef={setMovieRef}
+          setHeaderBlack={setHeaderBlack}
+        />
       ) : (
         ''
       )}
@@ -116,10 +122,12 @@ export default function Row({ rowData, index }: Props) {
           >
             <div className="mx-[5px] h-full relative ">
               <button
-                className="w-full h-full"
+                className="w-full h-full relative hover:scale-105 transition-all duration-200"
                 onClick={() => {
                   setModal(true);
                   setMovieRef(index);
+                  setHeaderBlack(false);
+                  document.body.style.overflow = 'hidden';
                 }}
               >
                 <Image

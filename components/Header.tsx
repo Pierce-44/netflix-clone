@@ -1,12 +1,16 @@
 import useHeaderBackground from '../hooks/useHeaderBackground';
 
-export default function Header() {
+interface Props {
+  headerBlack: boolean;
+}
+
+export default function Header({ headerBlack }: Props) {
   const changeColor = useHeaderBackground();
 
   return (
     <header
       className={`${
-        changeColor ? 'bg-[#0b0b0b]' : ''
+        changeColor && headerBlack ? 'bg-[#0b0b0b]' : ''
       } flex items-center justify-between transition-colors duration-700 fixed w-full h-[68px] top-0 left-0 z-50`}
     >
       <svg

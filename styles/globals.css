@@ -14,3 +14,22 @@ body {
 .textShadow {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.45);
 }
+
+.scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #171b20 #e50914;
+}
+
+/* For Chrome, EDGE, Opera, Others */
+.scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #e50914; 
+}
+
+.scrollbar::-webkit-scrollbar-track { 
+  background: #171b20;
+}

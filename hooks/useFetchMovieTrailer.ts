@@ -7,9 +7,14 @@ import { api } from '../util/api';
 interface Props {
   movieInfo: MovieInfo;
   setTrailer: React.Dispatch<React.SetStateAction<null | number>>;
+  setGenres: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-export default function useFetchMovieTrailer({ movieInfo, setTrailer }: Props) {
+export default function useFetchMovieTrailer({
+  movieInfo,
+  setTrailer,
+  setGenres,
+}: Props) {
   React.useEffect(() => {
     async function fetchMovie() {
       const data = await fetch(
@@ -27,7 +32,7 @@ export default function useFetchMovieTrailer({ movieInfo, setTrailer }: Props) {
         setTrailer(data.videos?.results[index]?.key);
       }
       if (data?.genres) {
-        // setGenres(data.genres)
+        setGenres(data.genres);
       }
     }
 
