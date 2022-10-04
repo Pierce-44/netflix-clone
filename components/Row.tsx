@@ -6,14 +6,15 @@ import { RowData } from '../typings';
 import { sectionsNameArray } from '../util/fetchMovieData';
 import handleCarousel from '../util/handleCarousel';
 import Modal from './Modal';
+import TopTwenties from './TopTwenties';
 
 interface Props {
   rowData: RowData;
-  index: number;
+  rowIndex: number;
   setHeaderBlack: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Row({ rowData, index, setHeaderBlack }: Props) {
+export default function Row({ rowData, rowIndex, setHeaderBlack }: Props) {
   const [showNavTabs, setShowNavTabs] = React.useState(false);
   const [showLeftNavTab, setShowLeftNavTab] = React.useState(false);
   const [showRightNavTab, setShowRightNavTab] = React.useState(true);
@@ -75,7 +76,9 @@ export default function Row({ rowData, index, setHeaderBlack }: Props) {
       ) : (
         ''
       )}
-      <p className="text-lg pb-2 font-semibold">{sectionsNameArray[index]}</p>
+      <p className="text-lg pb-2 font-semibold">
+        {sectionsNameArray[rowIndex]}
+      </p>
       <div
         className="flex relative justify-start items-center w-full 
         "
@@ -130,16 +133,20 @@ export default function Row({ rowData, index, setHeaderBlack }: Props) {
                   document.body.style.overflow = 'hidden';
                 }}
               >
-                <Image
-                  src={`https://image.tmdb.org/t/p/w500${
-                    movieInfo.backdrop_path || movieInfo.poster_path
-                  }`}
-                  alt="movie"
-                  className="object-cover rounded-sm "
-                  layout="fill"
-                  draggable="false"
-                  priority
-                />
+                {rowIndex === 0 ? (
+                  <TopTwenties movieInfo={movieInfo} index={index} />
+                ) : (
+                  <Image
+                    src={`https://image.tmdb.org/t/p/w500${
+                      movieInfo.backdrop_path || movieInfo.poster_path
+                    }`}
+                    alt="movie"
+                    className="object-cover rounded-sm "
+                    layout="fill"
+                    draggable="false"
+                    priority
+                  />
+                )}
               </button>
             </div>
           </div>

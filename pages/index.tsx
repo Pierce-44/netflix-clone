@@ -27,7 +27,7 @@ const Home = ({ data, randomNumb }: Props) => {
           <Row
             key={index}
             rowData={rowData}
-            index={index}
+            rowIndex={index}
             setHeaderBlack={setHeaderBlack}
           />
         ))}
