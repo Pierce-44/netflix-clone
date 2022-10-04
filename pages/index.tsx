@@ -13,6 +13,8 @@ interface Props {
 
 const Home = ({ data, randomNumb }: Props) => {
   const [headerBlack, setHeaderBlack] = React.useState(true);
+  const [savedMovies, setSavedMovies] = React.useState(false);
+
   return (
     <div className="relative text-[#e5e5e5]">
       <Head>
@@ -26,6 +28,7 @@ const Home = ({ data, randomNumb }: Props) => {
         {data.map((rowData, index) => (
           <Row
             key={index}
+            savedMovies={savedMovies}
             rowData={rowData}
             rowIndex={index}
             setHeaderBlack={setHeaderBlack}

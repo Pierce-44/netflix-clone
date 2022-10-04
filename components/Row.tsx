@@ -9,12 +9,18 @@ import Modal from './Modal';
 import TopTwenties from './TopTwenties';
 
 interface Props {
+  savedMovies: boolean;
   rowData: RowData;
   rowIndex: number;
   setHeaderBlack: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Row({ rowData, rowIndex, setHeaderBlack }: Props) {
+export default function Row({
+  savedMovies,
+  rowData,
+  rowIndex,
+  setHeaderBlack,
+}: Props) {
   const [showNavTabs, setShowNavTabs] = React.useState(false);
   const [showLeftNavTab, setShowLeftNavTab] = React.useState(false);
   const [showRightNavTab, setShowRightNavTab] = React.useState(true);
@@ -61,7 +67,9 @@ export default function Row({ rowData, rowIndex, setHeaderBlack }: Props) {
   return (
     <div
       {...handlers}
-      className="mt-12 mx-[5vw]"
+      className={`${
+        rowIndex === 1 && savedMovies ? 'mt-[calc(10.5vw+48px)]' : 'mt-12'
+      } mx-[5vw]`}
       ref={widthRef}
       onMouseEnter={() => setShowNavTabs(true)}
       onMouseLeave={() => setShowNavTabs(false)}
@@ -80,6 +88,7 @@ export default function Row({ rowData, rowIndex, setHeaderBlack }: Props) {
         {sectionsNameArray[rowIndex]}
       </p>
       <div
+        {...handlers}
         className="flex relative justify-start items-center w-full 
         "
       >
