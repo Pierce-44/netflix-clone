@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSession, signIn, signOut } from 'next-auth/react';
 import Head from 'next/head';
 import Banner from '../components/Banner';
 import Header from '../components/Header';
@@ -13,20 +12,10 @@ interface Props {
 }
 
 const Home = ({ data, randomNumb }: Props) => {
-  const { data: session } = useSession();
-
   const [headerBlack, setHeaderBlack] = React.useState(true);
-  const [myListData, setMyListData] = React.useState<RowData>({
+  const [myListData] = React.useState<RowData>({
     results: [],
   });
-
-  if (!session) {
-    return (
-      <div>
-        <p>not signed in</p>
-      </div>
-    );
-  }
 
   return (
     <div className="relative text-[#e5e5e5]">
