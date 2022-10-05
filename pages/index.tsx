@@ -1,5 +1,6 @@
-import Head from 'next/head';
 import React from 'react';
+import { useSession, signIn, signOut } from 'next-auth/react';
+import Head from 'next/head';
 import Banner from '../components/Banner';
 import Header from '../components/Header';
 import Row from '../components/Row';
@@ -12,8 +13,20 @@ interface Props {
 }
 
 const Home = ({ data, randomNumb }: Props) => {
+  const { data: session } = useSession();
+
   const [headerBlack, setHeaderBlack] = React.useState(true);
-  const [savedMovies, setSavedMovies] = React.useState(false);
+  const [myListData, setMyListData] = React.useState<RowData>({
+    results: [],
+  });
+
+  if (!session) {
+    return (
+      <div>
+        <p>not signed in</p>
+      </div>
+    );
+  }
 
   return (
     <div className="relative text-[#e5e5e5]">
@@ -25,10 +38,19 @@ const Home = ({ data, randomNumb }: Props) => {
       <Header headerBlack={headerBlack} />
       <Banner movieInfo={data[0].results[randomNumb]} />
       <div className="absolute z-40 w-full overflow-hidden top-[40vw] left-0">
+        {myListData.results.length !== 0 ? (
+          <Row
+            key="savedMovies"
+            rowData={myListData}
+            rowIndex={12}
+            setHeaderBlack={setHeaderBlack}
+          />
+        ) : (
+          ''
+        )}
         {data.map((rowData, index) => (
           <Row
             key={index}
-            savedMovies={savedMovies}
             rowData={rowData}
             rowIndex={index}
             setHeaderBlack={setHeaderBlack}

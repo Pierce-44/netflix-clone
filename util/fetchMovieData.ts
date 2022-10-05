@@ -59,4 +59,5 @@ export const sectionsNameArray = [
   'SienceFiction',
   'Documentaries',
   'WesternMovies',
+  'My List',
 ];
