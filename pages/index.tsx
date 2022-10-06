@@ -1,10 +1,14 @@
 import React from 'react';
+import { unstable_getServerSession } from 'next-auth/next';
+// import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Banner from '../components/Banner';
 import Header from '../components/Header';
 import Row from '../components/Row';
 import { RowData } from '../typings';
 import fetchMovieData from '../util/fetchMovieData';
+import type { GetServerSidePropsContext } from 'next';
+import { authOptions } from './api/auth/[...nextauth]';
 
 interface Props {
   data: RowData[];
@@ -16,6 +20,10 @@ const Home = ({ data, randomNumb }: Props) => {
   const [myListData] = React.useState<RowData>({
     results: [],
   });
+
+  // const { data: session } = useSession();
+
+  // console.log(session?.user.id);
 
   return (
     <div className="relative text-[#e5e5e5]">
@@ -50,9 +58,22 @@ const Home = ({ data, randomNumb }: Props) => {
   );
 };
 
-export async function getServerSideProps() {
-  const data = await fetchMovieData();
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
 
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/Login',
+      },
+    };
+  }
+
+  const data = await fetchMovieData();
   const randomNumb = Math.floor(Math.random() * 19);
 
   return {
