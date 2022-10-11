@@ -1,9 +1,16 @@
+import { MovieInfo } from '../typings';
+import { useSession } from 'next-auth/react';
+import handleAddMovieToMyList from '../util/handleAddMovieToMyList';
+
 interface Props {
   muted: boolean;
+  movieInfo: MovieInfo;
   setMuted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function ModalControls({ muted, setMuted }: Props) {
+export default function ModalControls({ muted, movieInfo, setMuted }: Props) {
+  const { data: session } = useSession();
+
   return (
     <div className="absolute bottom-[-2px] left-0 px-5 sm:bg-gradient-to-t from-[#141414] bg-[#141414] sm:bg-[#0000] pt-2 sm:pt-5 z-[3000] flex justify-between items-center w-[calc(100%+2px)] pb-5">
       <div className="flex items-center justify-start gap-4">
@@ -23,7 +30,16 @@ export default function ModalControls({ muted, setMuted }: Props) {
           </svg>
           <p className="text-black sm:text-base text-sm pr-2">Play</p>
         </button>
-        <button className="border-solid border-[1.5px] border-white rounded-full p-2">
+        <button
+          className="border-solid border-[1.5px] border-white rounded-full p-2"
+          onClick={() =>
+            // console.log(movieInfo.original_title || movieInfo.name)
+            handleAddMovieToMyList({
+              session,
+              movieName: movieInfo.original_title || movieInfo.name,
+            })
+          }
+        >
           <svg
             fill="none"
             viewBox="0 0 24 24"

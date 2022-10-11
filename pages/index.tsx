@@ -5,10 +5,11 @@ import Head from 'next/head';
 import Banner from '../components/Banner';
 import Header from '../components/Header';
 import Row from '../components/Row';
-import { RowData } from '../typings';
+import { MovieInfo, RowData } from '../typings';
 import fetchMovieData from '../util/fetchMovieData';
 import type { GetServerSidePropsContext } from 'next';
 import { authOptions } from './api/auth/[...nextauth]';
+import useCheckForSavedMovies from '../hooks/useCheckForSavedMovies';
 
 interface Props {
   data: RowData[];
@@ -17,13 +18,17 @@ interface Props {
 
 const Home = ({ data, randomNumb }: Props) => {
   const [headerBlack, setHeaderBlack] = React.useState(true);
-  const [myListData] = React.useState<RowData>({
+  const [myListData, setMyListData] = React.useState<RowData>({
     results: [],
   });
 
   const { data: session } = useSession();
-  // console.log(data);
+  // console.log(data[0].results[0].title);
   // console.log(session);
+
+  console.log(data);
+
+  useCheckForSavedMovies({ data, session, myListData, setMyListData });
 
   return (
     <div className="relative text-[#e5e5e5]">

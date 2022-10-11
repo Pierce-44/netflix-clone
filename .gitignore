@@ -15,6 +15,9 @@
 # api
 /util/api.ts
 
+# firebase
+/util/firebase.ts
+
 # production
 /build
 

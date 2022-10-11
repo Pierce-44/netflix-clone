@@ -69,7 +69,11 @@ export default function Modal({
           muted={muted}
           loop
         />
-        <ModalControls muted={muted} setMuted={setMuted} />
+        <ModalControls
+          muted={muted}
+          setMuted={setMuted}
+          movieInfo={movieInfo}
+        />
       </div>
       <div className="px-5 pb-5 sm:p-5 flex items-end justify-between gap-4">
         <div>
