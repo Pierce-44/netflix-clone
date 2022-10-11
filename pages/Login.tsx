@@ -42,8 +42,7 @@ export default function Login() {
         <div className="text-[#8c8c8c] mt-10">
           <p>New to Netflix?</p>
           <p className="text-xs mt-2">
-            Sign in above using your <b className="text-white">Google </b>
-            account through <b className="text-white">NextAuth </b>.
+            Sign in above through <b className="text-white">NextAuth </b>.
           </p>
         </div>
       </div>

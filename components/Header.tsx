@@ -11,10 +11,10 @@ export default function Header({ headerBlack }: Props) {
     <header
       className={`${
         changeColor && headerBlack ? 'bg-[#0b0b0b]' : ''
-      } flex items-center justify-between transition-colors duration-700 fixed w-full h-[68px] top-0 left-0 z-50`}
+      } flex items-center justify-between transition-colors duration-700 fixed w-full h-[40px] sm:h-[68px] top-0 left-0 z-50`}
     >
       <svg
-        className="ml-[5vw]"
+        className="ml-[5vw] sm:w-[111px] w-[60px] h-auto"
         viewBox="0 0 111 30"
         aria-hidden="true"
         focusable="false"
