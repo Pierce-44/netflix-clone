@@ -5,11 +5,11 @@ interface Props {
 
 export default function ModalControls({ muted, setMuted }: Props) {
   return (
-    <div className="absolute bottom-[-2px] left-0 px-5 bg-[#141414] pt-2 z-[3000] flex justify-between items-center w-[calc(100%+2px)]">
+    <div className="absolute bottom-[-2px] left-0 px-5 sm:bg-gradient-to-t from-[#141414] bg-[#141414] sm:bg-[#0000] pt-2 sm:pt-5 z-[3000] flex justify-between items-center w-[calc(100%+2px)] pb-5">
       <div className="flex items-center justify-start gap-4">
-        <button className="bg-white flex items-center justify-center px-6 py-1 rounded-[4px]">
+        <button className="bg-white flex items-center justify-center px-3 sm:px-6 py-1 rounded-[4px]">
           <svg
-            className="h-8 w-8"
+            className="sm:h-8 sm:w-8 h-5 w-5"
             fill="black"
             viewBox="0 0 24 24"
             strokeWidth="1.5"
@@ -21,7 +21,7 @@ export default function ModalControls({ muted, setMuted }: Props) {
               d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
             />
           </svg>
-          <p className="text-black pr-2">Play</p>
+          <p className="text-black sm:text-base text-sm pr-2">Play</p>
         </button>
         <button className="border-solid border-[1.5px] border-white rounded-full p-2">
           <svg
@@ -29,7 +29,7 @@ export default function ModalControls({ muted, setMuted }: Props) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="sm:w-6 sm:h-6 h-4 w-4"
           >
             <path
               strokeLinecap="round"
@@ -44,7 +44,7 @@ export default function ModalControls({ muted, setMuted }: Props) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="sm:w-6 sm:h-6 h-4 w-4"
           >
             <path
               strokeLinecap="round"
@@ -55,7 +55,7 @@ export default function ModalControls({ muted, setMuted }: Props) {
         </button>
       </div>
       <button
-        className="border-solid border-[1.5px] border-white rounded-full p-2"
+        className="border-solid border-[1.5px] border-white rounded-full p-2 hover:bg-[#8f8f8f3d]"
         onClick={() => setMuted(!muted)}
       >
         {muted ? (
@@ -64,7 +64,7 @@ export default function ModalControls({ muted, setMuted }: Props) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="sm:w-6 sm:h-6 h-4 w-4"
           >
             <path
               strokeLinecap="round"
@@ -76,9 +76,9 @@ export default function ModalControls({ muted, setMuted }: Props) {
           <svg
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={1.5}
+            strokeWidth={2}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="sm:w-6 sm:h-6 h-4 w-4"
           >
             <path
               strokeLinecap="round"

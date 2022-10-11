@@ -67,10 +67,11 @@ export default function Modal({
           // style={{ position: 'absolute', zIndex: '1005' }}
           playing
           muted={muted}
+          loop
         />
         <ModalControls muted={muted} setMuted={setMuted} />
       </div>
-      <div className="p-5 flex items-end justify-between gap-4">
+      <div className="px-5 pb-5 sm:p-5 flex items-end justify-between gap-4">
         <div>
           <p className="text-2xl pb-1 font-semibold">
             {movieInfo.name ||

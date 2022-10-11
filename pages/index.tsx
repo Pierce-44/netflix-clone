@@ -1,5 +1,6 @@
 import React from 'react';
 import { unstable_getServerSession } from 'next-auth/next';
+import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Banner from '../components/Banner';
 import Header from '../components/Header';
@@ -19,6 +20,10 @@ const Home = ({ data, randomNumb }: Props) => {
   const [myListData] = React.useState<RowData>({
     results: [],
   });
+
+  const { data: session } = useSession();
+  // console.log(data);
+  // console.log(session);
 
   return (
     <div className="relative text-[#e5e5e5]">
