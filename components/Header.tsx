@@ -1,3 +1,6 @@
+import Image from 'next/image';
+import React from 'react';
+import { signOut } from 'next-auth/react';
 import useHeaderBackground from '../hooks/useHeaderBackground';
 
 interface Props {
@@ -5,6 +8,8 @@ interface Props {
 }
 
 export default function Header({ headerBlack }: Props) {
+  const [dropDown, setDropDown] = React.useState(false);
+
   const changeColor = useHeaderBackground();
 
   return (
@@ -29,7 +34,45 @@ export default function Header({ headerBlack }: Props) {
           />
         </g>
       </svg>
-      <p>Header</p>
+      <div
+        className="pr-4 sm:pr-10 relative h-6 sm:h-8 "
+        onMouseEnter={() => setDropDown(true)}
+        onMouseLeave={() => setDropDown(false)}
+      >
+        <div className="cursor-pointer flex items-center justify-end gap-2">
+          <div className="rounded-[4px] overflow-hidden  h-6 w-6 sm:w-8 sm:h-8">
+            <Image
+              src="/profilePicture.png"
+              alt="avatar"
+              draggable="false"
+              priority
+              width={32}
+              height={32}
+            />
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className={`${dropDown ? 'rotate-180' : ''} w-6 h-6 transition-all`}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+            />
+          </svg>
+        </div>
+        <div className={dropDown ? ' pt-5 ' : 'hidden'}>
+          <div className="bg-[#000000d7] mt-2">
+            <button className="m-5 hover:underline" onClick={() => signOut()}>
+              Sign out of Netflix
+            </button>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }

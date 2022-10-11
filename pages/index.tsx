@@ -34,7 +34,7 @@ const Home = ({ data, randomNumb }: Props) => {
       </Head>
       <Header headerBlack={headerBlack} />
       <Banner movieInfo={data[0].results[randomNumb]} />
-      <div className="absolute z-40 w-full overflow-hidden top-[40vw] left-0">
+      <div className="absolute z-40 w-full overflow-hidden top-[40vw] left-0 pb-20">
         {myListData.results.length !== 0 ? (
           <Row
             key="savedMovies"
