@@ -8,12 +8,14 @@ interface Props {
   movieInfo: MovieInfo;
   setTrailer: React.Dispatch<React.SetStateAction<null | number>>;
   setGenres: React.Dispatch<React.SetStateAction<any[]>>;
+  setNoMovie: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function useFetchMovieTrailer({
   movieInfo,
   setTrailer,
   setGenres,
+  setNoMovie,
 }: Props) {
   React.useEffect(() => {
     async function fetchMovie() {
@@ -33,6 +35,9 @@ export default function useFetchMovieTrailer({
       }
       if (data?.genres) {
         setGenres(data.genres);
+      }
+      if (data?.videos?.results.length === 0 || data.success === false) {
+        setNoMovie(true);
       }
     }
 

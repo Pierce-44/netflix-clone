@@ -21,8 +21,9 @@ export default function Modal({
   const [trailer, setTrailer] = React.useState<null | number>(null);
   const [genres, setGenres] = React.useState<any[]>([]);
   const [muted, setMuted] = React.useState(false);
+  const [noMovie, setNoMovie] = React.useState(false);
 
-  useFetchMovieTrailer({ movieInfo, setTrailer, setGenres });
+  useFetchMovieTrailer({ movieInfo, setTrailer, setGenres, setNoMovie });
 
   return (
     <div className="fixed z-[1000] w-[90vw] sm:w-[80vw] xl:w-[50vw]  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-md shadow-[0px_0px_15px_5px_rgba(0,0,0,0.4)] bg-[#141414] ">
@@ -48,7 +49,17 @@ export default function Modal({
           />
         </svg>
       </button>
-      <div className="relative h-[70vw] sm:h-[40vw] xl:h-[29vw]">
+      <div className="relative h-[70vw] sm:h-[50vw] xl:h-[29vw]">
+        {noMovie ? (
+          <div className="h-full w-full flex items-center justify-center text-center">
+            <p>
+              Sorry this trailer is currently unavailable, please try another
+              movie.
+            </p>
+          </div>
+        ) : (
+          ''
+        )}
         <ReactPlayer
           url={`https://www.youtube.com/watch?v=${trailer}`}
           width="100%"
@@ -74,7 +85,7 @@ export default function Modal({
             <p>{movieInfo.release_date}</p>
           </div>
           <div className="flex gap-2">
-            <p className="max-h-[100px] overflow-y-auto scrollbar">
+            <p className="max-h-[100px] text-sm sm:text-base overflow-y-auto scrollbar">
               {movieInfo.overview}
             </p>
             <div className="hidden text-sm sm:flex items-center justify-between gap-2">
