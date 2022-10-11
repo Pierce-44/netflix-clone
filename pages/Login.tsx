@@ -1,9 +1,15 @@
 import Image from 'next/image';
+import Head from 'next/head';
 import { signIn } from 'next-auth/react';
 
 export default function Login() {
   return (
     <div className="text-white flex justify-center items-center h-screen bg-black">
+      <Head>
+        <title>Login - Netphlix</title>
+        <meta name="Netphlix" content="Login - Netphlix" />
+        <link rel="icon" href="/favicon.png" />
+      </Head>
       <div className="hidden sm:flex fixed top-0 left-0 h-screen w-full z-0">
         <Image
           src="/loginBG.jpg"
