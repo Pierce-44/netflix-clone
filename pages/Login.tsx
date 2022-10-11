@@ -34,7 +34,7 @@ export default function Login() {
       <div className="relative z-20 bg-[rgba(0,0,0,.75)] rounded-[4px] sm:p-16">
         <p className="font-medium text-4xl">Sign In</p>
         <button
-          className="bg-[#e50914] w-full max-w-[320px] text-lg font-medium mt-10 rounded-[4px] py-2"
+          className="bg-[#e50914] sm:w-[320px] w-full text-lg font-medium mt-10 rounded-[4px] py-2"
           onClick={() => signIn('google', { callbackUrl: '/' })}
         >
           Sign in
@@ -42,7 +42,7 @@ export default function Login() {
         <div className="text-[#8c8c8c] mt-10">
           <p>New to Netflix?</p>
           <p className="text-xs mt-2">
-            Sign in above through <b className="text-white">NextAuth </b>.
+            Sign in above through <b className="text-white">NextAuth</b>.
           </p>
         </div>
       </div>
