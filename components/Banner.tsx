@@ -34,7 +34,11 @@ export default function Banner({ movieInfo, setHeaderBlack }: Props) {
         <div className="sm:mt-7 flex items-center justify-center gap-3 lg:mb-20">
           <button
             className="hover:bg-[#dfdfdf] flex items-center justify-center gap-1 sm:gap-2 bg-white py-1 sm:py-2 rounded-[4px] px-2 sm:px-7"
-            onClick={() => setModal(true)}
+            onClick={() => {
+              setModal(true);
+              setHeaderBlack(false);
+              document.body.style.overflow = 'hidden';
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +58,11 @@ export default function Banner({ movieInfo, setHeaderBlack }: Props) {
           </button>
           <button
             className="bg-[#6D6D6EB3] hover:bg-[#6d6d6ed8] flex items-center gap-2 justify-center h-full rounded-[4px] px-5"
-            onClick={() => setModal(true)}
+            onClick={() => {
+              setModal(true);
+              setHeaderBlack(false);
+              document.body.style.overflow = 'hidden';
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
