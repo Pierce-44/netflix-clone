@@ -28,7 +28,10 @@ const Home = ({ data, randomNumb }: Props) => {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <Header headerBlack={headerBlack} />
-      <Banner movieInfo={data[0].results[randomNumb]} />
+      <Banner
+        movieInfo={data[0].results[randomNumb]}
+        setHeaderBlack={setHeaderBlack}
+      />
       <div className="absolute z-40 w-full overflow-hidden top-[40vw] left-0 pb-20">
         {myListData.results.length !== 0 ? (
           <Row
