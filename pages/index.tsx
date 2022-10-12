@@ -26,7 +26,7 @@ const Home = ({ data, randomNumb }: Props) => {
   // console.log(data[0].results[0].title);
   // console.log(session);
 
-  console.log(data);
+  // console.log(data);
 
   useCheckForSavedMovies({ data, session, myListData, setMyListData });
 
@@ -48,6 +48,7 @@ const Home = ({ data, randomNumb }: Props) => {
             key="savedMovies"
             rowData={myListData}
             rowIndex={12}
+            myListData={myListData}
             setHeaderBlack={setHeaderBlack}
           />
         ) : (
@@ -58,6 +59,7 @@ const Home = ({ data, randomNumb }: Props) => {
             key={index}
             rowData={rowData}
             rowIndex={index}
+            myListData={myListData}
             setHeaderBlack={setHeaderBlack}
           />
         ))}

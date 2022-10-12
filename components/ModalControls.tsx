@@ -1,15 +1,34 @@
-import { MovieInfo } from '../typings';
+import { MovieInfo, RowData } from '../typings';
 import { useSession } from 'next-auth/react';
 import handleAddMovieToMyList from '../util/handleAddMovieToMyList';
+import handleRemoveMovieFromMyList from '../util/handleRemoveMovieFromMyList';
 
 interface Props {
   muted: boolean;
+  rowIndex: number;
   movieInfo: MovieInfo;
+  myListData: RowData;
   setMuted: React.Dispatch<React.SetStateAction<boolean>>;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setMovieRef: React.Dispatch<React.SetStateAction<number | null>>;
+  setHeaderBlack: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function ModalControls({ muted, movieInfo, setMuted }: Props) {
+export default function ModalControls({
+  muted,
+  rowIndex,
+  movieInfo,
+  myListData,
+  setMuted,
+  setModal,
+  setMovieRef,
+  setHeaderBlack,
+}: Props) {
   const { data: session } = useSession();
+
+  const movieSaved = myListData.results
+    .map((info) => info.original_title || info.name)
+    .includes(movieInfo.original_title || movieInfo.name);
 
   return (
     <div className="absolute bottom-[-2px] left-0 px-5 sm:bg-gradient-to-t from-[#141414] bg-[#141414] sm:bg-[#0000] pt-2 sm:pt-5 z-[3000] flex justify-between items-center w-[calc(100%+2px)] pb-5">
@@ -30,31 +49,63 @@ export default function ModalControls({ muted, movieInfo, setMuted }: Props) {
           </svg>
           <p className="text-black sm:text-base text-sm pr-2">Play</p>
         </button>
-        <button
-          className="border-solid border-[1.5px] border-white rounded-full p-2"
-          onClick={() =>
-            // console.log(movieInfo.original_title || movieInfo.name)
-            handleAddMovieToMyList({
-              session,
-              movieName: movieInfo.original_title || movieInfo.name,
-            })
-          }
-        >
-          <svg
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="sm:w-6 sm:h-6 h-4 w-4"
+        {movieSaved ? (
+          <button
+            className="border-solid border-[2px] border-[#585858] hover:border-white rounded-full p-2"
+            onClick={() => {
+              handleRemoveMovieFromMyList({
+                session,
+                movieName: movieInfo.original_title || movieInfo.name,
+              });
+              if (rowIndex === 12) {
+                setModal(false);
+                setMovieRef(null);
+                setHeaderBlack(true);
+                document.body.style.overflow = 'initial';
+              }
+            }}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 4.5v15m7.5-7.5h-15"
-            />
-          </svg>
-        </button>
-        <button className="border-solid border-[1.5px] border-white rounded-full p-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="sm:w-6 sm:h-6 h-4 w-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4.5 12.75l6 6 9-13.5"
+              />
+            </svg>
+          </button>
+        ) : (
+          <button
+            className="border-solid border-[2px] border-[#585858] hover:border-white rounded-full p-2"
+            onClick={() =>
+              handleAddMovieToMyList({
+                session,
+                movieName: movieInfo.original_title || movieInfo.name,
+              })
+            }
+          >
+            <svg
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="sm:w-6 sm:h-6 h-4 w-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
+            </svg>
+          </button>
+        )}
+        <button className="border-solid border-[2px] border-[#585858] hover:border-white rounded-full p-2">
           <svg
             fill="none"
             viewBox="0 0 24 24"
@@ -71,7 +122,7 @@ export default function ModalControls({ muted, movieInfo, setMuted }: Props) {
         </button>
       </div>
       <button
-        className="border-solid border-[1.5px] border-white rounded-full p-2 hover:bg-[#8f8f8f3d]"
+        className="border-solid border-[2px] border-[#585858] hover:border-white rounded-full p-2"
         onClick={() => setMuted(!muted)}
       >
         {muted ? (

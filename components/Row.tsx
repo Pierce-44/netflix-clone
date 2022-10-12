@@ -11,10 +11,16 @@ import TopTwenties from './TopTwenties';
 interface Props {
   rowData: RowData;
   rowIndex: number;
+  myListData: RowData;
   setHeaderBlack: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Row({ rowData, rowIndex, setHeaderBlack }: Props) {
+export default function Row({
+  rowData,
+  rowIndex,
+  myListData,
+  setHeaderBlack,
+}: Props) {
   const [showNavTabs, setShowNavTabs] = React.useState(false);
   const [showLeftNavTab, setShowLeftNavTab] = React.useState(false);
   const [showRightNavTab, setShowRightNavTab] = React.useState(true);
@@ -69,6 +75,8 @@ export default function Row({ rowData, rowIndex, setHeaderBlack }: Props) {
       {modal && movieRef !== null ? (
         <Modal
           movieInfo={rowData.results[movieRef]}
+          myListData={myListData}
+          rowIndex={rowIndex}
           setModal={setModal}
           setMovieRef={setMovieRef}
           setHeaderBlack={setHeaderBlack}

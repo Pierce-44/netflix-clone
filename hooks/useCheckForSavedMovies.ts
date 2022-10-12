@@ -1,9 +1,11 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import React from 'react';
 import { Session } from 'next-auth';
 import { RowData } from '../typings';
-import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import { doc, getFirestore, setDoc, onSnapshot } from 'firebase/firestore';
 import { app } from '../util/firebase';
 
 interface Props {
@@ -19,50 +21,47 @@ export default function useCheckForSavedMovies({
   myListData,
   setMyListData,
 }: Props) {
-  async function handleCheckUser() {
-    const db = getFirestore(app);
-    const docRef = doc(db, 'users', session!.user!.id);
-    const docSnap = await getDoc(docRef);
+  const db = getFirestore(app);
 
-    // console.log(session.user.id);
-
-    if (docSnap.exists()) {
-      // console.log(docSnap.data().myList);
-
-      const array = [...myListData.results];
-
-      data.map((data) => {
-        data.results.map((movieInfo) =>
-          // console.log(movieInfo.original_title || movieInfo.name)
-          {
-            if (
-              // check if the api list includes a saved movie from the db if so push it into the array
-              docSnap
-                .data()
-                .myList.includes(movieInfo.original_title || movieInfo.name)
-            ) {
-              console.log('saved');
-              // const array = [...myListData.results];
-              array.push(movieInfo);
-              // console.log(array);
-            }
-          }
-        );
-      });
-      setMyListData({ results: array });
-    } else {
-      // doc.data() will be undefined in this case
-      console.log('No such document!');
-
-      // If the user doesnt exist add a new document in collection "users"
-      await setDoc(doc(db, 'users', session!.user!.id), {
-        myList: [],
-      });
-    }
-  }
+  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
-    if (!session) return;
-    handleCheckUser();
-  }, [session]);
+    if (!session || mounted) return;
+
+    const unsub = onSnapshot(
+      doc(db, 'users', session!.user!.id),
+      (doc: any) => {
+        if (doc.exists()) {
+          const array = [...myListData.results];
+          const movieNames: string[] = [];
+
+          data.map((data) => {
+            data.results.map((movieInfo) => {
+              if (
+                // check if the users db my list includes a from the api if so push it into the array
+                doc
+                  .data()
+                  .myList.includes(
+                    movieInfo.original_title || movieInfo.name
+                  ) &&
+                !movieNames.includes(movieInfo.original_title || movieInfo.name)
+              ) {
+                array.push(movieInfo);
+                movieNames.push(movieInfo.original_title || movieInfo.name);
+              }
+            });
+          });
+          setMyListData({ results: array });
+          setMounted(true);
+        } else {
+          // If the user doesnt exist add a new document in collection "users"
+          setDoc(doc(db, 'users', session!.user!.id), {
+            myList: [],
+          });
+        }
+      }
+    );
+
+    return unsub;
+  }, [session, data]);
 }

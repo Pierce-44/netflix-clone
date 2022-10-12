@@ -2,11 +2,13 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 import useFetchMovieTrailer from '../hooks/useFetchMovieTrailer';
-import { MovieInfo } from '../typings';
+import { MovieInfo, RowData } from '../typings';
 import ModalControls from './ModalControls';
 
 interface Props {
   movieInfo: MovieInfo;
+  myListData: RowData;
+  rowIndex: number;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   setMovieRef: React.Dispatch<React.SetStateAction<number | null>>;
   setHeaderBlack: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,6 +16,8 @@ interface Props {
 
 export default function Modal({
   movieInfo,
+  myListData,
+  rowIndex,
   setModal,
   setMovieRef,
   setHeaderBlack,
@@ -71,21 +75,26 @@ export default function Modal({
         />
         <ModalControls
           muted={muted}
+          myListData={myListData}
           setMuted={setMuted}
           movieInfo={movieInfo}
+          rowIndex={rowIndex}
+          setModal={setModal}
+          setMovieRef={setMovieRef}
+          setHeaderBlack={setHeaderBlack}
         />
       </div>
       <div className="px-5 pb-5 sm:p-5 flex items-end justify-between gap-4">
         <div>
           <p className="text-2xl pb-1 font-semibold">
-            {movieInfo.name ||
-              movieInfo.original_title ||
-              movieInfo.origional_name ||
-              movieInfo.title}
+            {movieInfo?.name ||
+              movieInfo?.original_title ||
+              movieInfo?.origional_name ||
+              movieInfo?.title}
           </p>
           <div className="flex justify-start items-center gap-3 pb-3">
             <p className="text-green-400">
-              {(movieInfo.vote_average * 10).toFixed()}% Match
+              {(movieInfo?.vote_average * 10).toFixed()}% Match
             </p>
             <p>{movieInfo.release_date}</p>
           </div>
