@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Banner from '../components/Banner';
 import Header from '../components/Header';
 import Row from '../components/Row';
-import { MovieInfo, RowData } from '../typings';
+import { RowData } from '../typings';
 import fetchMovieData from '../util/fetchMovieData';
 import type { GetServerSidePropsContext } from 'next';
 import { authOptions } from './api/auth/[...nextauth]';
@@ -23,10 +23,6 @@ const Home = ({ data, randomNumb }: Props) => {
   });
 
   const { data: session } = useSession();
-  // console.log(data[0].results[0].title);
-  // console.log(session);
-
-  // console.log(data);
 
   useCheckForSavedMovies({ data, session, myListData, setMyListData });
 

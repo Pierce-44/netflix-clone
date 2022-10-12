@@ -13,7 +13,7 @@ export default async function handleAddMovieToMyList({
   movieName,
 }: Props) {
   const db = getFirestore(app);
-  const userRef = doc(db, 'users', session!.user!.id);
+  const userRef = doc(db, 'users', session!.user!.email as string);
 
   await updateDoc(userRef, {
     myList: arrayUnion(movieName),

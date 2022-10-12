@@ -11,25 +11,6 @@ export const authOptions: NextAuthOptions = {
   theme: {
     colorScheme: 'dark',
   },
-  callbacks: {
-    async jwt({ token, account, profile }) {
-      // Persist the OAuth access_token and or the user id to the token right after signin
-      if (account) {
-        token.accessToken = account.access_token;
-        token.id = account.access_token;
-      }
-      return token;
-    },
-    async session({ session, token, user }) {
-      // Send properties to the client, like an access_token and user id from a provider.
-      if (session.user) {
-        session.accessToken = token.id;
-        session.user.id = token.id as string;
-      }
-
-      return session;
-    },
-  },
 };
 
 export default NextAuth(authOptions);

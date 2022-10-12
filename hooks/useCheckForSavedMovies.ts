@@ -28,8 +28,10 @@ export default function useCheckForSavedMovies({
   React.useEffect(() => {
     if (!session || mounted) return;
 
+    console.log(session);
+
     const unsub = onSnapshot(
-      doc(db, 'users', session!.user!.id),
+      doc(db, 'users', session!.user!.email as string),
       (docs: any) => {
         console.log(doc);
         if (docs.exists()) {
@@ -56,7 +58,7 @@ export default function useCheckForSavedMovies({
           setMounted(true);
         } else {
           // If the user doesnt exist add a new document in collection "users"
-          setDoc(doc(db, 'users', session!.user!.id), {
+          setDoc(doc(db, 'users', session!.user!.email as string), {
             myList: [],
           });
         }
