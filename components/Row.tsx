@@ -12,6 +12,7 @@ interface Props {
   rowData: RowData;
   rowIndex: number;
   myListData: RowData;
+  myLikedData: RowData;
   setHeaderBlack: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -19,6 +20,7 @@ export default function Row({
   rowData,
   rowIndex,
   myListData,
+  myLikedData,
   setHeaderBlack,
 }: Props) {
   const [showNavTabs, setShowNavTabs] = React.useState(false);
@@ -76,6 +78,7 @@ export default function Row({
         <Modal
           movieInfo={rowData.results[movieRef]}
           myListData={myListData}
+          myLikedData={myLikedData}
           rowIndex={rowIndex}
           setModal={setModal}
           setMovieRef={setMovieRef}

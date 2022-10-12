@@ -10,6 +10,7 @@ import fetchMovieData from '../util/fetchMovieData';
 import type { GetServerSidePropsContext } from 'next';
 import { authOptions } from './api/auth/[...nextauth]';
 import useCheckForSavedMovies from '../hooks/useCheckForSavedMovies';
+import useCheckForLikedMovies from '../hooks/useCheckForLikedMovies';
 
 interface Props {
   data: RowData[];
@@ -21,10 +22,14 @@ const Home = ({ data, randomNumb }: Props) => {
   const [myListData, setMyListData] = React.useState<RowData>({
     results: [],
   });
+  const [myLikedData, setMyLikedData] = React.useState<RowData>({
+    results: [],
+  });
 
   const { data: session } = useSession();
 
   useCheckForSavedMovies({ data, session, myListData, setMyListData });
+  useCheckForLikedMovies({ data, session, myListData, setMyLikedData });
 
   return (
     <div className="relative text-[#e5e5e5]">
@@ -37,6 +42,7 @@ const Home = ({ data, randomNumb }: Props) => {
       <Banner
         movieInfo={data[0].results[randomNumb]}
         myListData={myListData}
+        myLikedData={myLikedData}
         setHeaderBlack={setHeaderBlack}
       />
       <div className="absolute z-40 w-full overflow-hidden top-[40vw] left-0 pb-20">
@@ -46,6 +52,7 @@ const Home = ({ data, randomNumb }: Props) => {
             rowData={myListData}
             rowIndex={12}
             myListData={myListData}
+            myLikedData={myLikedData}
             setHeaderBlack={setHeaderBlack}
           />
         ) : (
@@ -57,6 +64,7 @@ const Home = ({ data, randomNumb }: Props) => {
             rowData={rowData}
             rowIndex={index}
             myListData={myListData}
+            myLikedData={myLikedData}
             setHeaderBlack={setHeaderBlack}
           />
         ))}

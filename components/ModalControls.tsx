@@ -2,12 +2,15 @@ import { MovieInfo, RowData } from '../typings';
 import { useSession } from 'next-auth/react';
 import handleAddMovieToMyList from '../util/handleAddMovieToMyList';
 import handleRemoveMovieFromMyList from '../util/handleRemoveMovieFromMyList';
+import handleLikeMovie from '../util/handleLikeMovie';
+import handleUnlikeMovie from '../util/handleUnlikeMovie';
 
 interface Props {
   muted: boolean;
   rowIndex: number | null;
   movieInfo: MovieInfo;
   myListData: RowData;
+  myLikedData: RowData;
   setMuted: React.Dispatch<React.SetStateAction<boolean>>;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   setMovieRef: React.Dispatch<React.SetStateAction<number | null>>;
@@ -19,6 +22,7 @@ export default function ModalControls({
   rowIndex,
   movieInfo,
   myListData,
+  myLikedData,
   setMuted,
   setModal,
   setMovieRef,
@@ -27,6 +31,10 @@ export default function ModalControls({
   const { data: session } = useSession();
 
   const movieSaved = myListData.results
+    .map((info) => info.original_title || info.name)
+    .includes(movieInfo.original_title || movieInfo.name);
+
+  const movieLiked = myLikedData.results
     .map((info) => info.original_title || info.name)
     .includes(movieInfo.original_title || movieInfo.name);
 
@@ -105,9 +113,22 @@ export default function ModalControls({
             </svg>
           </button>
         )}
-        <button className="border-solid border-[2px] border-[#585858] hover:border-white rounded-full p-2">
+        <button
+          className="border-solid border-[2px] border-[#585858] hover:border-white rounded-full p-2"
+          onClick={() => {
+            movieLiked
+              ? handleUnlikeMovie({
+                  session,
+                  movieName: movieInfo.original_title || movieInfo.name,
+                })
+              : handleLikeMovie({
+                  session,
+                  movieName: movieInfo.original_title || movieInfo.name,
+                });
+          }}
+        >
           <svg
-            fill="none"
+            fill={movieLiked ? 'white' : 'none'}
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"

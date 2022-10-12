@@ -12,14 +12,14 @@ interface Props {
   data: RowData[];
   session: Session | null;
   myListData: RowData;
-  setMyListData: React.Dispatch<React.SetStateAction<RowData>>;
+  setMyLikedData: React.Dispatch<React.SetStateAction<RowData>>;
 }
 
-export default function useCheckForSavedMovies({
+export default function useCheckForLikedMovies({
   data,
   session,
   myListData,
-  setMyListData,
+  setMyLikedData,
 }: Props) {
   const db = getFirestore(app);
 
@@ -41,7 +41,7 @@ export default function useCheckForSavedMovies({
                 // check if the users db my list includes a from the api if so push it into the array
                 docs
                   .data()
-                  .myList.includes(
+                  .likedList.includes(
                     movieInfo.original_title || movieInfo.name
                   ) &&
                 !movieNames.includes(movieInfo.original_title || movieInfo.name)
@@ -51,14 +51,8 @@ export default function useCheckForSavedMovies({
               }
             });
           });
-          setMyListData({ results: array });
+          setMyLikedData({ results: array });
           setMounted(true);
-        } else {
-          // If the user doesnt exist add a new document in collection "users"
-          setDoc(doc(db, 'users', session!.user!.email as string), {
-            myList: [],
-            likedList: [],
-          });
         }
       }
     );

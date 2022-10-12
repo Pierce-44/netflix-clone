@@ -8,6 +8,7 @@ import ModalControls from './ModalControls';
 interface Props {
   movieInfo: MovieInfo;
   myListData: RowData;
+  myLikedData: RowData;
   rowIndex: number | null;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   setMovieRef: React.Dispatch<React.SetStateAction<number | null>>;
@@ -17,6 +18,7 @@ interface Props {
 export default function Modal({
   movieInfo,
   myListData,
+  myLikedData,
   rowIndex,
   setModal,
   setMovieRef,
@@ -76,6 +78,7 @@ export default function Modal({
         <ModalControls
           muted={muted}
           myListData={myListData}
+          myLikedData={myLikedData}
           setMuted={setMuted}
           movieInfo={movieInfo}
           rowIndex={rowIndex}

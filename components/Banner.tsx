@@ -6,12 +6,14 @@ import Modal from './Modal';
 interface Props {
   movieInfo: MovieInfo;
   myListData: RowData;
+  myLikedData: RowData;
   setHeaderBlack: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Banner({
   movieInfo,
   myListData,
+  myLikedData,
   setHeaderBlack,
 }: Props) {
   const [, setMovieRef] = React.useState<null | number>(null);
@@ -22,6 +24,7 @@ export default function Banner({
       {modal ? (
         <Modal
           myListData={myListData}
+          myLikedData={myLikedData}
           rowIndex={null}
           movieInfo={movieInfo}
           setModal={setModal}
