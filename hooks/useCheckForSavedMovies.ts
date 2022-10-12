@@ -28,12 +28,9 @@ export default function useCheckForSavedMovies({
   React.useEffect(() => {
     if (!session || mounted) return;
 
-    console.log(session);
-
     const unsub = onSnapshot(
       doc(db, 'users', session!.user!.email as string),
       (docs: any) => {
-        console.log(doc);
         if (docs.exists()) {
           const array = [...myListData.results];
           const movieNames: string[] = [];
