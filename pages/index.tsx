@@ -40,6 +40,7 @@ const Home = ({ data, randomNumb }: Props) => {
       <Header headerBlack={headerBlack} />
       <Banner
         movieInfo={data[0].results[randomNumb]}
+        myListData={myListData}
         setHeaderBlack={setHeaderBlack}
       />
       <div className="absolute z-40 w-full overflow-hidden top-[40vw] left-0 pb-20">

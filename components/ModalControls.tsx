@@ -5,7 +5,7 @@ import handleRemoveMovieFromMyList from '../util/handleRemoveMovieFromMyList';
 
 interface Props {
   muted: boolean;
-  rowIndex: number;
+  rowIndex: number | null;
   movieInfo: MovieInfo;
   myListData: RowData;
   setMuted: React.Dispatch<React.SetStateAction<boolean>>;

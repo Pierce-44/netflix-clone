@@ -8,7 +8,7 @@ import ModalControls from './ModalControls';
 interface Props {
   movieInfo: MovieInfo;
   myListData: RowData;
-  rowIndex: number;
+  rowIndex: number | null;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   setMovieRef: React.Dispatch<React.SetStateAction<number | null>>;
   setHeaderBlack: React.Dispatch<React.SetStateAction<boolean>>;

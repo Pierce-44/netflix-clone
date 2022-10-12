@@ -30,8 +30,9 @@ export default function useCheckForSavedMovies({
 
     const unsub = onSnapshot(
       doc(db, 'users', session!.user!.id),
-      (doc: any) => {
-        if (doc.exists()) {
+      (docs: any) => {
+        console.log(doc);
+        if (docs.exists()) {
           const array = [...myListData.results];
           const movieNames: string[] = [];
 
@@ -39,7 +40,7 @@ export default function useCheckForSavedMovies({
             data.results.map((movieInfo) => {
               if (
                 // check if the users db my list includes a from the api if so push it into the array
-                doc
+                docs
                   .data()
                   .myList.includes(
                     movieInfo.original_title || movieInfo.name

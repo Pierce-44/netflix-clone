@@ -1,14 +1,19 @@
 import Image from 'next/image';
 import React from 'react';
-import { MovieInfo } from '../typings';
+import { MovieInfo, RowData } from '../typings';
 import Modal from './Modal';
 
 interface Props {
   movieInfo: MovieInfo;
+  myListData: RowData;
   setHeaderBlack: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Banner({ movieInfo, setHeaderBlack }: Props) {
+export default function Banner({
+  movieInfo,
+  myListData,
+  setHeaderBlack,
+}: Props) {
   const [, setMovieRef] = React.useState<null | number>(null);
   const [modal, setModal] = React.useState(false);
 
@@ -16,6 +21,8 @@ export default function Banner({ movieInfo, setHeaderBlack }: Props) {
     <div className="h-[54vw] realtive">
       {modal ? (
         <Modal
+          myListData={myListData}
+          rowIndex={null}
           movieInfo={movieInfo}
           setModal={setModal}
           setMovieRef={setMovieRef}
