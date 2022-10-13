@@ -54,7 +54,7 @@ export default function Modal({
       }}
     >
       {showPopUp ? (
-        <div className="absolute bottom-1 sm:bottom-4 left-1/2 transform -translate-x-1/2 z-50">
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-50">
           <p className="bg-white rounded-full animate-bounce text-black font-semibold px-7 py-4 text-center text-xs md:text-base w-max max-w-[300px] sm:max-w-none">
             {movieInfo.original_title || movieInfo.name} has been added to My
             List.
