@@ -24,10 +24,19 @@ export default function Modal({
   setMovieRef,
   setHeaderBlack,
 }: Props) {
+  const movieSaved = myListData.results
+    .map((info) => info.original_title || info.name)
+    .includes(movieInfo.original_title || movieInfo.name);
+
+  const movieLiked = myLikedData.results
+    .map((info) => info.original_title || info.name)
+    .includes(movieInfo.original_title || movieInfo.name);
+
   const [trailer, setTrailer] = React.useState<null | number>(null);
   const [genres, setGenres] = React.useState<any[]>([]);
   const [muted, setMuted] = React.useState(false);
   const [noMovie, setNoMovie] = React.useState(false);
+  const [showPopUp, setShowPopUp] = React.useState(movieLiked ? false : '');
 
   useFetchMovieTrailer({ movieInfo, setTrailer, setGenres, setNoMovie });
 
@@ -44,6 +53,16 @@ export default function Modal({
         }
       }}
     >
+      {showPopUp ? (
+        <div className="absolute bottom-1 sm:bottom-4 left-1/2 transform -translate-x-1/2 z-50">
+          <p className="bg-white rounded-full animate-bounce text-black font-semibold px-7 py-4 text-center text-xs md:text-base w-max max-w-[300px] sm:max-w-none">
+            {movieInfo.original_title || movieInfo.name} has been added to My
+            List.
+          </p>
+        </div>
+      ) : (
+        ''
+      )}
       <div className="fixed  w-[90vw] sm:w-[80vw] xl:w-[50vw]  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-md shadow-[0px_0px_15px_5px_rgba(0,0,0,0.4)] bg-[#141414] ">
         <button
           className="absolute right-5 hover:scale-110 top-4 z-[1001] h-12 w-12 bg-[#141414] rounded-full"
@@ -88,14 +107,15 @@ export default function Modal({
           />
           <ModalControls
             muted={muted}
-            myListData={myListData}
-            myLikedData={myLikedData}
+            movieSaved={movieSaved}
+            movieLiked={movieLiked}
             setMuted={setMuted}
             movieInfo={movieInfo}
             rowIndex={rowIndex}
             setModal={setModal}
             setMovieRef={setMovieRef}
             setHeaderBlack={setHeaderBlack}
+            setShowPopUp={setShowPopUp}
           />
         </div>
         <div className="px-5 pb-5 sm:p-5 flex items-end justify-between gap-4">

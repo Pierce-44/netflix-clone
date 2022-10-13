@@ -1,4 +1,4 @@
-import { MovieInfo, RowData } from '../typings';
+import { MovieInfo } from '../typings';
 import { useSession } from 'next-auth/react';
 import handleAddMovieToMyList from '../util/handleAddMovieToMyList';
 import handleRemoveMovieFromMyList from '../util/handleRemoveMovieFromMyList';
@@ -10,35 +10,29 @@ interface Props {
   muted: boolean;
   rowIndex: number | null;
   movieInfo: MovieInfo;
-  myListData: RowData;
-  myLikedData: RowData;
+  movieSaved: boolean;
+  movieLiked: boolean;
   setMuted: React.Dispatch<React.SetStateAction<boolean>>;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   setMovieRef: React.Dispatch<React.SetStateAction<number | null>>;
   setHeaderBlack: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowPopUp: React.Dispatch<React.SetStateAction<string | boolean>>;
 }
 
 export default function ModalControls({
   muted,
   rowIndex,
   movieInfo,
-  myListData,
-  myLikedData,
+  movieSaved,
+  movieLiked,
   setMuted,
   setModal,
   setMovieRef,
   setHeaderBlack,
+  setShowPopUp,
 }: Props) {
   const [showLikedPopUp, setShowLikedPopUp] = React.useState(false);
   const [showSavedMoviePopUp, setShowSavedMoviePopUp] = React.useState(false);
-
-  const movieSaved = myListData.results
-    .map((info) => info.original_title || info.name)
-    .includes(movieInfo.original_title || movieInfo.name);
-
-  const movieLiked = myLikedData.results
-    .map((info) => info.original_title || info.name)
-    .includes(movieInfo.original_title || movieInfo.name);
 
   const { data: session } = useSession();
 
@@ -88,6 +82,7 @@ export default function ModalControls({
                   session,
                   movieName: movieInfo.original_title || movieInfo.name,
                 });
+                setShowPopUp(false);
                 if (rowIndex === 12) {
                   setModal(false);
                   setMovieRef(null);
@@ -114,12 +109,13 @@ export default function ModalControls({
           ) : (
             <button
               className="border-solid border-[2px] border-[#585858] hover:border-white rounded-full p-2"
-              onClick={() =>
+              onClick={() => {
                 handleAddMovieToMyList({
                   session,
                   movieName: movieInfo.original_title || movieInfo.name,
-                })
-              }
+                });
+                setShowPopUp(true);
+              }}
             >
               <svg
                 fill="none"
