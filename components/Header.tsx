@@ -15,7 +15,9 @@ export default function Header({ headerBlack }: Props) {
   return (
     <header
       className={`${
-        changeColor && headerBlack ? 'bg-[#0b0b0b]' : ''
+        changeColor && headerBlack
+          ? 'bg-[#0b0b0b]'
+          : 'bg-gradient-to-b from-[#0b0b0b9f]'
       } flex items-center justify-between transition-colors duration-700 fixed w-full h-[40px] sm:h-[68px] top-0 left-0 z-50`}
     >
       <svg
@@ -67,7 +69,10 @@ export default function Header({ headerBlack }: Props) {
         </div>
         <div className={dropDown ? ' pt-5 ' : 'hidden'}>
           <div className="bg-[#000000d7] mt-2">
-            <button className="m-5 hover:underline" onClick={() => signOut()}>
+            <button
+              className="text-sm m-5 hover:underline"
+              onClick={() => signOut()}
+            >
               Sign out of Netflix
             </button>
           </div>
