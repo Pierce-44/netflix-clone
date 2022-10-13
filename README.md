@@ -25,87 +25,33 @@ View a live version of the app using the link below:
 <br/>
 
 ## View a Range of Movies and Series
-- Utilises tmdb api
-- Unfollow users to stop receiving their latest updates.
+- Utilises TMDb api to get movies and series by genres, latest releases, most popular, etc.
+- Utilises ReactPlayer to display the corresponding YouTube trailers based on the fetched TMDb api data.
 
-![followUsers](https://user-images.githubusercontent.com/96740762/191067953-f8a4da95-28df-4883-8728-84b57d27a871.gif)
-
-<br/>
-
-## Uploade Profile Pictures
-- Upload a profile picture, or choose to not use a profile picture.
-
-![profilePic](https://user-images.githubusercontent.com/96740762/191061648-854d9ea0-3b3c-4d13-a6f1-f16c2bb9aa11.gif)
+![default](https://user-images.githubusercontent.com/96740762/195638923-46185d08-dd4b-4236-8dd9-2cbfb767dc9e.gif)
 
 <br/>
 
-## Create Posts
-- Create post to fill out your user profile and to share your content with your followers.
-- Other users can like your posts and leave comments for you to view.
+## Save Movies to My List
+- Users can save selected movies to their "My List".
+- Allows users to keep track of movies or series they may want to watch in the future.
 
-![createPosts](https://user-images.githubusercontent.com/96740762/191060616-51036a66-e017-4c50-8f7b-f566cdd69a40.gif)
-
-<br/>
-
-## Chat Rooms and Notifications
-- Create chat rooms with other users.
-- Receive notifications when you receive new unread messages form other users.
-
-![chatNoti](https://user-images.githubusercontent.com/96740762/191050552-5d0fb4d2-303b-4e20-9659-a2e690e754a9.gif)
+![myList](https://user-images.githubusercontent.com/96740762/195639688-c7f24cd4-d587-47fe-90a6-96156ae1f05d.gif)
 
 <br/>
 
-## Likes and Comment Notifications
-- Receive notification updates when someone likes or comments on your posts.
-- Like other users posts to let them know what you think.
-- Leave messages on other users posts to tell them what you think about the post.
+## NextAuth Authentication
+- Utilises NextAuth, allowing users to be authenticated server side through getServerSideProps.
+- Users can access the app through their registered Google account.
 
-![heartNoti](https://user-images.githubusercontent.com/96740762/191052391-1cd46a84-cfba-4b19-a82c-1b8d3ba1f9cb.gif)
-
-<br/>
-
-## Stories
-- Set a story to let your followers know what you have been up to recently.
-- Once you view a story it will be displayed as viewed.
-
-![stories](https://user-images.githubusercontent.com/96740762/191066573-183a3206-66de-4b24-87d5-2d25c8836aef.gif)
+![nextAuth](https://user-images.githubusercontent.com/96740762/195640451-fd4f305e-0ed5-4239-8f4e-8ab4545cb866.gif)
 
 <br/>
-
-## Search For Users
-- Search for users by name (case sensitive).
-
-![search](https://user-images.githubusercontent.com/96740762/191048630-87e7b47c-ca39-4c5c-a83c-092b3ca006a6.gif)
-
-<br/>
-
-## Check Other User Profiles
-- View other users profile pages and see all their posts.
-
-![userProfiles](https://user-images.githubusercontent.com/96740762/191056081-78dc0c10-2dbf-4961-b9ec-9e66a8a66d66.gif)
-
-<br/>
-
-## Use Dark Mode
-- Use dark mode throughout the app if desired.
-- Utilises local storage to keep track of your reference.
-
-![darkMode](https://user-images.githubusercontent.com/96740762/191063795-4492109c-f258-4083-9d09-8f4a12f3c218.gif)
-
-<br/>
-
-## Explore Registered Users
-- Explore all registered users.
-
-![exploreUsers](https://user-images.githubusercontent.com/96740762/191064602-6c43d061-afc9-4974-92d9-e21834e36f36.gif)
-
-<br/>
-
 
 ## Responsive Design
 - Fully responsive design to allow the app to work on both computers, notepads, mobile phones, etc.
 
-![responsive](https://user-images.githubusercontent.com/96740762/191266199-cc5856d5-31b0-4365-b905-8b6281f5a083.gif)
+![mobile](https://user-images.githubusercontent.com/96740762/195640592-c8f7c871-ca64-4b36-8261-1bbfdb859000.gif)
 
 <br/>
 
@@ -119,30 +65,7 @@ View a live version of the app using the link below:
    
 <br/>
 
-2. Go to Firebase and follow the instructions for creating a project
-   ```sh
-   https://firebase.google.com/
-   ```
-   
-<br/>   
-
-3. Within your Firebase cloud storage create three folders named "posts", "profilePhotos" and "stories" (seen below):
-
-   ![firebaseCloud](https://user-images.githubusercontent.com/96740762/191279127-bace5d47-a316-4636-88bc-9bc25b114bd6.png)
-   
-<br/>
-
-4. Within your Firestore Database create two collections one named "userList" and the other "users" (seen below):
-
-   ![firebaseDB](https://user-images.githubusercontent.com/96740762/191280085-712860a4-b81b-4a63-b684-8b32beada745.png)
-
-<br/>
-
-5. Within your Firebase project allow email and password sign-in method.
-
-<br/>
-
-6. Within `util/firbaseConfig.ts` replace the empty Firebase configuration with your Firebase configuration, which was assigned to your project when you created it and    can be found under your project settings on Firebase. It should resemble the following example:
+2. Create the following file `util/firbaseConfig.ts` and paste in your Firebase configuration, which was assigned to your project when you created it on firebase and can be found under your project settings on Firebase. It should resemble the following example:
     ```js
     // Your web app's Firebase configuration should resemble the following EXAMPLE:
     
@@ -157,15 +80,26 @@ View a live version of the app using the link below:
     ```
     
     <br/>
+    
+3. Create a free account with [TMDB](https://www.themoviedb.org/signup) and then follow their instructions in the linked guide below to create your own personal API key:
 
-7. Install NPM packages
+   [`TMDB API Guide`](https://developers.themoviedb.org/3/getting-started/introduction) 
+
+   <br/>
+
+4. Create the following file `util/firbaseConfig.ts` and add your personal TMDB api key from section 3
+   ```js
+   export const api = 'ENTER YOUR API HERE';
+   ```
+
+5. Install NPM packages
    ```sh
    npm install
    ```
    
     <br/>
 
-8. Start the app on your localhost
+6. Start the app on your localhost
    ```js
    npm run dev
    ```
