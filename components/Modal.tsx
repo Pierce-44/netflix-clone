@@ -70,7 +70,6 @@ export default function Modal({
           url={`https://www.youtube.com/watch?v=${trailer}`}
           width="100%"
           height="100%"
-          // style={{ position: 'absolute', zIndex: '1005' }}
           playing
           muted={muted}
           loop

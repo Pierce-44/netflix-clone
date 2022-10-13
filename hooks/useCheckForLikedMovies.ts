@@ -5,7 +5,7 @@
 import React from 'react';
 import { Session } from 'next-auth';
 import { RowData } from '../typings';
-import { doc, getFirestore, setDoc, onSnapshot } from 'firebase/firestore';
+import { doc, getFirestore, onSnapshot } from 'firebase/firestore';
 import { app } from '../util/firebase';
 
 interface Props {
@@ -35,10 +35,11 @@ export default function useCheckForLikedMovies({
           const array = [...myListData.results];
           const movieNames: string[] = [];
 
+          // map over the api data to get the individual movies info
           data.map((data) => {
             data.results.map((movieInfo) => {
               if (
-                // check if the users db my list includes a from the api if so push it into the array
+                // check if the users liked list includes a movie from the api, if so push it into the array
                 docs
                   .data()
                   .likedList.includes(

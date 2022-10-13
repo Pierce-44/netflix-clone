@@ -35,10 +35,11 @@ export default function useCheckForSavedMovies({
           const array = [...myListData.results];
           const movieNames: string[] = [];
 
+          // map over the api data to get the individual movies info
           data.map((data) => {
             data.results.map((movieInfo) => {
               if (
-                // check if the users db my list includes a from the api if so push it into the array
+                // check if the users db my list includes a movie from the api, if so push it into the array
                 docs
                   .data()
                   .myList.includes(
