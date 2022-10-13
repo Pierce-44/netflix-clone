@@ -3,7 +3,7 @@
 </div>
 
 # Netflix Clone
-Description
+A Netflix Clone app written in Typescript that utilises Next.js as a framework, allowing for static HTML to be generated server-side on build time, resulting in better performance and SEO. This app utilises NextAuth to authorise users serverside through getServerSideProps, additionally users can login to the app through their registered Google account. The TMDb api was used to gather movies/series data (most popular, top rated, new series, etc). Users can save selected movies to their "My List" by utilising Firebase (BaaS) as the database. Additionally, the TailwindCSS framework was used to help with CSS management and to reduce the CSS bundle size by removing all unused CSS when building for production.
 
 View a live version of the app using the link below:
 
@@ -65,9 +65,18 @@ View a live version of the app using the link below:
    
 <br/>
 
-2. Create the following file `util/firbaseConfig.ts` and paste in your Firebase configuration, which was assigned to your project when you created it on firebase and can be found under your project settings on Firebase. It should resemble the following example:
+2. Go to Firebase and follow the instructions for creating a project
+   ```sh
+   https://firebase.google.com/
+   ```
+   
+<br/>  
+
+2. Create the following file in your local repository `util/firbaseConfig.ts` and paste in your Firebase configuration, which was assigned to your project when you created it on firebase and can be found under your project settings on Firebase. It should resemble the following example:
     ```js
     // Your web app's Firebase configuration should resemble the following EXAMPLE:
+    
+    import { initializeApp } from 'firebase/app';
     
     const firebaseConfig = {
       apiKey: "AIzaSyA97-R5P4bEwjV0efHt3hLs3bc32ns4shs",
@@ -77,6 +86,9 @@ View a live version of the app using the link below:
       messagingSenderId: "554003582327",
       appId: "1:554003582327:web:97667da84152c9ff7aa572"
     };
+    
+    // Initialize Firebase
+    export const app = initializeApp(firebaseConfig);
     ```
     
     <br/>
@@ -87,7 +99,7 @@ View a live version of the app using the link below:
 
    <br/>
 
-4. Create the following file `util/firbaseConfig.ts` and add your personal TMDB api key from section 3
+4. Create the following file in your local repository `util/firbaseConfig.ts` and add your personal TMDB api key from section 3
    ```js
    export const api = 'ENTER YOUR API HERE';
    ```
