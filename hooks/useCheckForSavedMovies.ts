@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Session } from 'next-auth';
-import { RowData } from '../typings';
+import { MovieInfo, RowData } from '../typings';
 import { doc, getFirestore, setDoc, onSnapshot } from 'firebase/firestore';
 import { app } from '../util/firebase';
 
@@ -32,7 +32,7 @@ export default function useCheckForSavedMovies({
       doc(db, 'users', session!.user!.email as string),
       (docs: any) => {
         if (docs.exists()) {
-          const array = [...myListData.results];
+          const array: MovieInfo[] = [];
           const movieNames: string[] = [];
 
           // map over the api data to get the individual movies info
