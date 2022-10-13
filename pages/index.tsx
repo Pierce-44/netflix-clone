@@ -28,8 +28,8 @@ const Home = ({ data, randomNumb }: Props) => {
 
   const { data: session } = useSession();
 
-  useCheckForSavedMovies({ data, session, myListData, setMyListData });
-  useCheckForLikedMovies({ data, session, myListData, setMyLikedData });
+  useCheckForSavedMovies({ data, session, setMyListData });
+  useCheckForLikedMovies({ data, session, setMyLikedData });
 
   return (
     <div className="relative text-[#e5e5e5]">

@@ -4,21 +4,19 @@
 
 import React from 'react';
 import { Session } from 'next-auth';
-import { RowData } from '../typings';
+import { MovieInfo, RowData } from '../typings';
 import { doc, getFirestore, onSnapshot } from 'firebase/firestore';
 import { app } from '../util/firebase';
 
 interface Props {
   data: RowData[];
   session: Session | null;
-  myListData: RowData;
   setMyLikedData: React.Dispatch<React.SetStateAction<RowData>>;
 }
 
 export default function useCheckForLikedMovies({
   data,
   session,
-  myListData,
   setMyLikedData,
 }: Props) {
   const db = getFirestore(app);
@@ -32,7 +30,7 @@ export default function useCheckForLikedMovies({
       doc(db, 'users', session!.user!.email as string),
       (docs: any) => {
         if (docs.exists()) {
-          const array = [...myListData.results];
+          const array: MovieInfo[] = [];
           const movieNames: string[] = [];
 
           // map over the api data to get the individual movies info

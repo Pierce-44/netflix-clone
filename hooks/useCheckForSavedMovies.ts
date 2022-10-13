@@ -11,14 +11,12 @@ import { app } from '../util/firebase';
 interface Props {
   data: RowData[];
   session: Session | null;
-  myListData: RowData;
   setMyListData: React.Dispatch<React.SetStateAction<RowData>>;
 }
 
 export default function useCheckForSavedMovies({
   data,
   session,
-  myListData,
   setMyListData,
 }: Props) {
   const db = getFirestore(app);
