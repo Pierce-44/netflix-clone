@@ -58,6 +58,9 @@ export default function useCheckForLikedMovies({
       }
     );
 
-    return unsub;
+    return () => {
+      unsub;
+      setMounted(false);
+    };
   }, [session, data]);
 }

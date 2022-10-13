@@ -64,6 +64,9 @@ export default function useCheckForSavedMovies({
       }
     );
 
-    return unsub;
+    return () => {
+      unsub;
+      setMounted(false);
+    };
   }, [session, data]);
 }
