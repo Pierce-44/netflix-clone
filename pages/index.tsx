@@ -34,8 +34,8 @@ const Home = ({ data, randomNumb }: Props) => {
   return (
     <div className="relative text-[#e5e5e5]">
       <Head>
-        <title>Home - Netphlix</title>
-        <meta name="Netphlix" content="Home - Netphlix" />
+        <title>Home</title>
+        <meta name="Net-phlix" content="Home" />
         <link rel="icon" href="/favicon.png" />
       </Head>
       <Header headerBlack={headerBlack} />
