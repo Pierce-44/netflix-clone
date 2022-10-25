@@ -7,7 +7,7 @@ A Netflix Clone app written in Typescript that utilises Next.js as a framework, 
 
 View a live version of the app using the link below:
 
-[`https://netphlix.vercel.app/`](https://netphlix.vercel.app/)
+[`https://project-net.vercel.app/`](https://project-net.vercel.app/)
 
 <br/>
 
